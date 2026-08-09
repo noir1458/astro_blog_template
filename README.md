@@ -1,5 +1,7 @@
 # Astro Personal Blog Template
 
+[English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md)
+
 > You only need to edit `config/`, `content/`, and `public/images/`.
 
 A configuration-driven Astro blog with Markdown posts, projects, search, RSS,
