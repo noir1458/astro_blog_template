@@ -220,5 +220,6 @@ internal so normal customization stays in the three user-facing areas.
 
 ## License
 
-No open-source license has been selected for this extracted template yet. Choose and
-add a license before publishing the repository as a public GitHub Template Repository.
+This template is available under the [MIT License](./LICENSE).
+
+Copyright (c) 2026 noir1458.
