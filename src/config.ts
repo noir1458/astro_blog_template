@@ -1,0 +1,57 @@
+import { loadSiteConfig } from "./lib/config/index.ts";
+import { prefixSitePath, siteBasePath } from "./lib/config/sitePaths.ts";
+
+export const USER_CONFIG = loadSiteConfig();
+
+export const SUPPORTED_LANGUAGE_CODES = USER_CONFIG.supportedLanguageCodes;
+
+export type SupportedLanguage = string;
+
+export const LANGUAGES = USER_CONFIG.languages;
+export const NAVIGATION = USER_CONFIG.navigation;
+export const SOCIAL = USER_CONFIG.social;
+export const FEATURES = USER_CONFIG.features;
+export const PROFILE = USER_CONFIG.profile;
+
+const defaultLanguage = LANGUAGES[USER_CONFIG.site.language];
+const configuredSiteUrl = new URL(USER_CONFIG.site.url);
+const basePath = siteBasePath(USER_CONFIG.site.url);
+
+if (!defaultLanguage) {
+  throw new Error(
+    `No language configuration found for ${USER_CONFIG.site.language}.`
+  );
+}
+
+export const SITE = {
+  title: USER_CONFIG.site.title,
+  description: USER_CONFIG.site.description,
+  url: USER_CONFIG.site.url,
+  origin: configuredSiteUrl.origin,
+  basePath,
+  locale: defaultLanguage.locale,
+  language: USER_CONFIG.site.language,
+  timeZone: USER_CONFIG.site.timeZone,
+  socialImage: USER_CONFIG.branding.defaultOgImage,
+  favicon: USER_CONFIG.branding.favicon,
+  manifestIcon: USER_CONFIG.branding.manifestIcon,
+  postsPerPage: USER_CONFIG.site.postsPerPage,
+  author: {
+    name: USER_CONFIG.author.name,
+    displayName: USER_CONFIG.author.displayName,
+    profileImage: USER_CONFIG.author.profileImage,
+    url: USER_CONFIG.social.github
+  },
+  analyticsId: USER_CONFIG.integrations.analyticsId,
+  googleVerification: USER_CONFIG.integrations.googleSiteVerification,
+  giscus: USER_CONFIG.integrations.giscus
+} as const;
+
+export function sitePath(value: string): string {
+  return prefixSitePath(value, SITE.basePath);
+}
+
+export function absoluteSiteUrl(value = "/"): string {
+  if (/^https?:\/\//u.test(value)) return value;
+  return new URL(sitePath(value), SITE.origin).toString();
+}

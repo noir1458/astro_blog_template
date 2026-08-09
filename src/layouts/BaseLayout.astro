@@ -1,0 +1,199 @@
+---
+import "katex/dist/katex.min.css";
+import "@/styles/global.css";
+import {
+  FEATURES,
+  LANGUAGES,
+  SITE,
+  absoluteSiteUrl,
+  sitePath,
+  type SupportedLanguage
+} from "@/config";
+import Header from "@/components/Header.astro";
+import Sidebar from "@/components/Sidebar.astro";
+import Footer from "@/components/Footer.astro";
+import { getPublishedPosts, type PostTranslation } from "@/utils/content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  sidebar?: boolean;
+  pagefindBody?: boolean;
+  ogType?: "website" | "article";
+  schema?: Record<string, unknown>;
+  language?: SupportedLanguage;
+  translations?: PostTranslation[];
+}
+
+const {
+  title,
+  description = SITE.description,
+  image,
+  noindex = false,
+  sidebar = true,
+  pagefindBody = false,
+  ogType = "website",
+  schema,
+  language = SITE.language,
+  translations = []
+} = Astro.props;
+const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
+const canonical = absoluteSiteUrl(Astro.url.pathname);
+const socialImage = absoluteSiteUrl(image ?? SITE.socialImage);
+const posts = sidebar ? await getPublishedPosts() : [];
+const isProduction = import.meta.env.PROD;
+const xDefaultTranslation =
+  translations.find((translation) => translation.lang === SITE.language)
+  ?? translations[0];
+---
+
+<!doctype html>
+<html
+  lang={language}
+  data-theme={FEATURES.darkMode ? "system" : "light"}
+  data-theme-enabled={String(FEATURES.darkMode)}
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#161719" media="(prefers-color-scheme: dark)" />
+    {SITE.googleVerification && (
+      <meta name="google-site-verification" content={SITE.googleVerification} />
+    )}
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <link rel="canonical" href={canonical} />
+    {FEATURES.rss && (
+      <link rel="alternate" type="application/rss+xml" title={SITE.title} href={sitePath("/rss.xml")} />
+    )}
+    <link rel="icon" href={sitePath(SITE.favicon)} />
+    <link rel="manifest" href={sitePath("/manifest.webmanifest")} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={LANGUAGES[language].ogLocale} />
+    {translations
+      .filter((translation) => translation.lang !== language)
+      .map((translation) => (
+        <meta property="og:locale:alternate" content={LANGUAGES[translation.lang].ogLocale} />
+      ))}
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={pageTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={pageTitle} />
+    {translations.map((translation) => (
+      <link
+        rel="alternate"
+        hreflang={translation.lang}
+        href={absoluteSiteUrl(translation.href)}
+      />
+    ))}
+    {translations.length > 1 && xDefaultTranslation && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={absoluteSiteUrl(xDefaultTranslation.href)}
+      />
+    )}
+    {pagefindBody && <meta data-pagefind-meta="language" content={language} />}
+    <title>{pageTitle}</title>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        if (root.dataset.themeEnabled === "true") {
+          const saved = localStorage.getItem("color-theme");
+          const theme = saved === "neon"
+            ? "dark"
+            : saved === "light" || saved === "dark" || saved === "system"
+              ? saved
+              : "system";
+          root.dataset.theme = theme;
+          if (saved === "neon") localStorage.setItem("color-theme", "dark");
+        } else {
+          root.dataset.theme = "light";
+          root.dataset.resolvedTheme = "light";
+        }
+        root.dataset.sidebarCollapsed = String(
+          window.matchMedia("(min-width: 961px)").matches
+          && localStorage.getItem("sidebar-collapsed") === "true"
+        );
+      })();
+    </script>
+    {!isProduction && (
+      <script is:inline>
+        (() => {
+          if (!("serviceWorker" in navigator) || !("caches" in window)) return;
+
+          const reloadMarker = "astro-blog-dev-cache-cleaned";
+          Promise.all([navigator.serviceWorker.getRegistrations(), caches.keys()])
+            .then(async ([registrations, cacheNames]) => {
+              const blogCaches = cacheNames;
+              if (registrations.length === 0 && blogCaches.length === 0) {
+                sessionStorage.removeItem(reloadMarker);
+                return;
+              }
+
+              await Promise.all([
+                ...registrations.map((registration) => registration.unregister()),
+                ...blogCaches.map((name) => caches.delete(name))
+              ]);
+
+              if (sessionStorage.getItem(reloadMarker) !== "true") {
+                sessionStorage.setItem(reloadMarker, "true");
+                location.reload();
+              }
+            })
+            .catch((error) => console.warn("Unable to clear the development cache.", error));
+        })();
+      </script>
+    )}
+    {
+      schema && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(schema).replaceAll("<", "\\u003c")}
+        />
+      )
+    }
+    <slot name="head" />
+  </head>
+  <body data-pagefind-body={pagefindBody ? "" : undefined}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="site-shell">
+      <Header language={language} translations={translations} />
+      <div class:list={["content-grid", { "without-sidebar": !sidebar }]} data-layout>
+        <main id="main-content" class="main-content">
+          <slot />
+        </main>
+        {sidebar && <Sidebar posts={posts} />}
+      </div>
+      <Footer />
+    </div>
+    <script>
+      import "@/scripts/theme";
+      import "@/scripts/navigation";
+      import "@/scripts/service-worker";
+    </script>
+    {isProduction && SITE.analyticsId && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analyticsId}`}></script>
+        <script is:inline define:vars={{ analyticsId: SITE.analyticsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag("js", new Date());
+          gtag("config", analyticsId);
+        </script>
+      </>
+    )}
+  </body>
+</html>

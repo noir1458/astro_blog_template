@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { countTerms, getPublishedPosts } from "@/utils/content";
+import { sitePath } from "@/config";
+
+const posts = await getPublishedPosts();
+const categories = countTerms(posts, "categories");
+---
+
+<BaseLayout title="Categories" description="주제별로 모아보는 게시글 카테고리">
+  <header class="page-heading">
+    <span class="eyebrow">Index</span>
+    <h1>Categories</h1>
+    <p>Browse {categories.length} categories across {posts.length} published posts.</p>
+  </header>
+  <div class="term-grid">
+    {categories.map((category) => (
+      <a class="term-card" href={sitePath(`/categories/${category.slug}/`)}>
+        <span>{category.name}</span>
+        <span class="term-count">{category.count}</span>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

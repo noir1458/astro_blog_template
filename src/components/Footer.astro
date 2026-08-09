@@ -1,0 +1,22 @@
+---
+import { FEATURES, NAVIGATION, SITE, sitePath } from "@/config";
+
+const footerLinks = NAVIGATION.footer.filter(
+  (link) => !link.requiresFeature || FEATURES[link.requiresFeature]
+);
+---
+
+<footer class="site-footer">
+  <span>© {new Date().getFullYear()} {SITE.author.name}</span>
+  <nav aria-label="Footer navigation">
+    {footerLinks.map((link) => (
+      <a
+        href={sitePath(link.href)}
+        rel={link.external ? "noopener noreferrer" : undefined}
+        target={link.external ? "_blank" : undefined}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</footer>

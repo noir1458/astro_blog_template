@@ -1,0 +1,73 @@
+---
+import type { PostEntry } from "@/utils/content";
+import { groupCategoriesBySource } from "@/utils/content";
+import Icon from "@/components/Icon.astro";
+import { FEATURES, NAVIGATION, sitePath } from "@/config";
+
+interface Props {
+  posts: PostEntry[];
+}
+
+const { posts } = Astro.props;
+const categoryGroups = groupCategoriesBySource(posts);
+const sidebarLinks = NAVIGATION.sidebar.filter(
+  (link) => link.icon && (!link.requiresFeature || FEATURES[link.requiresFeature])
+);
+---
+
+<button
+  class="sidebar-toggle icon-button"
+  data-sidebar-toggle
+  type="button"
+  aria-expanded="true"
+  aria-label="Hide sidebar"
+  aria-controls="blog-sidebar"
+>
+  <Icon name="chevron-right" />
+</button>
+<div class="sidebar-region" data-sidebar-region>
+  <aside id="blog-sidebar" class="sidebar" data-sidebar aria-label="Blog navigation">
+    <nav class="sidebar-links" aria-label="Quick links">
+      {sidebarLinks.map((link) => (
+        <a
+          class="sidebar-link icon-button"
+          href={sitePath(link.href)}
+          rel={link.external ? "noopener noreferrer" : undefined}
+          target={link.external ? "_blank" : undefined}
+          aria-label={link.label}
+          title={link.label}
+        >
+          <Icon name={link.icon!} />
+        </a>
+      ))}
+    </nav>
+
+    <details class="sidebar-widget" open>
+      <summary>
+        <span>Categories</span>
+        <Icon name="chevron-down" size={20} />
+      </summary>
+      <ul class="term-list">
+        {categoryGroups.map((group, groupIndex) => (
+          <Fragment>
+            {groupIndex > 0 && (
+              <li
+                class="term-group-separator"
+                data-source-group={group.sourceFolder}
+                aria-hidden="true"
+              />
+            )}
+            {group.categories.map((term) => (
+              <li>
+                <a href={sitePath(`/categories/${term.slug}/`)}>
+                  <span>{term.name}</span>
+                  <span class="term-count">{term.count}</span>
+                </a>
+              </li>
+            ))}
+          </Fragment>
+        ))}
+      </ul>
+    </details>
+  </aside>
+</div>

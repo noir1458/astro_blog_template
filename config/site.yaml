@@ -1,0 +1,39 @@
+site:
+  title: Example Blog
+  description: A personal blog built with Astro.
+  url: https://username.github.io
+  language: en
+  timeZone: UTC
+  postsPerPage: 6
+
+author:
+  name: Your Name
+  displayName: Your Name
+  profileImage: /images/profile/profile.png
+
+branding:
+  favicon: /images/site/favicon.png
+  manifestIcon: /images/site/favicon.png
+  defaultOgImage: /images/site/template-preview.png
+
+languages:
+  en:
+    label: English
+    locale: en-US
+    ogLocale: en_US
+    pathPrefix: ''
+  ko:
+    label: 한국어
+    locale: ko-KR
+    ogLocale: ko_KR
+    pathPrefix: /ko
+  ja:
+    label: 日本語
+    locale: ja-JP
+    ogLocale: ja_JP
+    pathPrefix: /ja
+
+integrations:
+  analyticsId:
+  googleSiteVerification:
+  giscus:

@@ -1,0 +1,77 @@
+---
+import { FEATURES, NAVIGATION, SITE, sitePath } from "@/config";
+import Icon from "@/components/Icon.astro";
+import ThemeControls from "@/components/ThemeControls.astro";
+import LanguageControls from "@/components/LanguageControls.astro";
+import type { SupportedLanguage } from "@/config";
+import type { PostTranslation } from "@/utils/content";
+
+interface Props {
+  language?: SupportedLanguage;
+  translations?: PostTranslation[];
+}
+
+const { language = SITE.language, translations = [] } = Astro.props;
+const headerLinks = NAVIGATION.header.filter(
+  (link) => !link.requiresFeature || FEATURES[link.requiresFeature]
+);
+---
+
+<header class="site-header">
+  <div class="title-row">
+    <a class="site-title" href={sitePath("/")}>{SITE.title}</a>
+    <div class="header-actions">
+      <LanguageControls currentLanguage={language} translations={translations} />
+      {FEATURES.darkMode && <ThemeControls />}
+    </div>
+  </div>
+
+  <div class="topbar">
+    <button
+      class="nav-toggle icon-button"
+      data-nav-toggle
+      type="button"
+      aria-controls="primary-navigation"
+      aria-expanded="false"
+      aria-label="Open navigation"
+    >
+      <span class="nav-toggle-menu"><Icon name="menu" /></span>
+      <span class="nav-toggle-close"><Icon name="close" /></span>
+    </button>
+    <nav
+      id="primary-navigation"
+      class="primary-nav"
+      data-primary-nav
+      aria-label="Primary navigation"
+    >
+      {headerLinks.map((link) => (
+        <a
+          href={sitePath(link.href)}
+          rel={link.external ? "noopener noreferrer" : undefined}
+          target={link.external ? "_blank" : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+    {FEATURES.search && (
+      <div class="search-shell" data-search-shell>
+        <form action={sitePath("/search/")} class="header-search" role="search">
+          <button
+            class="search-toggle icon-button"
+            data-search-toggle
+            type="button"
+            aria-expanded="false"
+            aria-label="Open search"
+          >
+            <Icon name="search" />
+          </button>
+          <div class="header-search-field">
+            <label class="sr-only" for="site-search">Search the blog</label>
+            <input id="site-search" name="q" placeholder="Search posts" type="search" />
+          </div>
+        </form>
+      </div>
+    )}
+  </div>
+</header>
