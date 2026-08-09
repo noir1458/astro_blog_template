@@ -12,7 +12,7 @@ with short example content and builds without editing Astro or TypeScript files.
 
 | Path | Purpose |
 | --- | --- |
-| `config/` | Site identity, profile, navigation, social links, languages, and features |
+| `config/` | Site identity, profile, navigation, category groups, social links, languages, and features |
 | `content/` | Markdown posts, post images, and project Markdown |
 | `public/images/` | Profile, project, favicon, manifest, and default social images |
 
@@ -66,10 +66,11 @@ Edit these files in order:
 1. `config/site.yaml` — title, public URL, locale, author, images, and optional
    public integration identifiers
 2. `config/navigation.yaml` — header, sidebar, and footer links
-3. `config/social.yaml` — GitHub, LinkedIn, email, and resume links
-4. `config/features.yaml` — search, RSS, sitemap, dark mode, table of contents,
+3. `config/categories.yaml` — sidebar category groups, order, and hidden categories
+4. `config/social.yaml` — GitHub, LinkedIn, email, and resume links
+5. `config/features.yaml` — search, RSS, sitemap, dark mode, table of contents,
    projects, and comments
-5. `config/profile.md` — About page title and introduction
+6. `config/profile.md` — About page title and introduction
 
 Empty optional social and integration values are hidden. A navigation item with
 `requiresFeature` is hidden when its related feature is disabled. See
@@ -125,9 +126,13 @@ The interactive authoring helper creates a draft in the correct folder:
 npm run new
 ```
 
-Ordered group names look like `00.blog` or `01.notes`; they control category order
-in the sidebar. The included `getting-started` examples demonstrate an image, code,
-math, internal and external links, tags, and drafts.
+Content folders are only for organizing source files. Configure sidebar grouping
+and order in `config/categories.yaml`. Categories omitted from both `groups` and
+`hidden` remain visible in an automatic final group and are listed by
+`npm run check`; `hidden` only removes them from the sidebar.
+
+The included `getting-started` examples demonstrate an image, code, math, internal
+and external links, tags, and drafts.
 
 ## Add projects
 
