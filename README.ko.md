@@ -24,7 +24,7 @@ GitHub Pages 배포를 지원하는 설정 기반 Astro 블로그입니다. 짧�
 ## 주요 기능
 
 - 반응형 레이아웃과 다크 모드를 제공하는 Astro 정적 사이트
-- 카테고리, 태그, 초안, 수식과 코드 하이라이팅을 지원하는 Markdown 게시물
+- 카테고리, 태그, 초안, 수식, Mermaid 다이어그램과 코드 하이라이팅을 지원하는 Markdown 게시물
 - Pagefind 검색, 아카이브, 페이지네이션, RSS, sitemap과 robots.txt
 - Canonical URL, Open Graph, Twitter Card와 JSON-LD
 - 선택적으로 사용할 수 있는 프로젝트 목록과 상세 페이지
@@ -52,6 +52,7 @@ GitHub Pages 배포를 지원하는 설정 기반 Astro 블로그입니다. 짧�
 ```bash
 nvm use
 npm ci
+npx playwright install --only-shell chromium
 npm run dev
 ```
 
@@ -69,7 +70,7 @@ npm run check
 2. `config/navigation.yaml` — header, sidebar와 footer 링크
 3. `config/categories.yaml` — sidebar 카테고리 그룹, 순서와 숨김 설정
 4. `config/social.yaml` — GitHub, LinkedIn, 이메일과 이력서 링크
-5. `config/features.yaml` — 검색, RSS, sitemap, 다크 모드, 목차, 프로젝트와 댓글
+5. `config/features.yaml` — 검색, RSS, sitemap, 다크 모드, 목차, Mermaid, 프로젝트와 댓글
 6. `config/profile.md` — About 페이지 제목과 소개
 
 비어 있는 선택적 소셜 및 연동 값은 화면에 표시되지 않습니다. `requiresFeature`가
@@ -132,6 +133,17 @@ npm run new
 
 포함된 `getting-started` 예제는 이미지, 코드, 수식, 내부·외부 링크, 태그와 초안
 사용법을 보여줍니다.
+
+다이어그램은 일반 `mermaid` fenced code block으로 작성합니다. 다이어그램이 먼저
+표시되며 아래의 **Mermaid 소스 보기**를 열면 원문을 확인하고 복사할 수 있습니다.
+
+````md
+```mermaid
+flowchart LR
+    A --> B
+    B --> C
+```
+````
 
 ## 프로젝트 추가
 

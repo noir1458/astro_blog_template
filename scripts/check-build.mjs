@@ -293,13 +293,15 @@ if (manifest) {
 
 const contentEntries = walk(contentRoot, (file) => file.endsWith(".md"))
   .map((file) => {
-    const data = matter(fs.readFileSync(file, "utf8")).data;
+    const parsed = matter(fs.readFileSync(file, "utf8"));
+    const data = parsed.data;
     return {
       file,
       filename: path.basename(file),
       slug: data.slug,
       lang: data.lang ?? defaultLanguage,
       translationKey: data.translationKey ?? data.slug,
+      mermaidBlocks: (parsed.content.match(/^```mermaid\s*$/gmu) ?? []).length,
       draft: data.draft === true
     };
   })
@@ -326,6 +328,7 @@ if (FEATURES.sitemap) {
 
 let postDescriptions = 0;
 let multilingualPostPages = 0;
+let renderedMermaidBlocks = 0;
 for (const entry of contentEntries) {
   const urlPath = postPath(entry);
   const outputFile = outputFileForPath(urlPath);
@@ -336,6 +339,23 @@ for (const entry of contentEntries) {
 
   const html = fs.readFileSync(outputFile, "utf8");
   const relativeOutput = path.relative(distRoot, outputFile);
+  const mermaidBlocks = (html.match(/class="mermaid-block"/gu) ?? []).length;
+  const mermaidSources = (html.match(/class="mermaid-source"/gu) ?? []).length;
+  const lightDiagrams = (html.match(/mermaid-diagram-light/gu) ?? []).length;
+  const darkDiagrams = (html.match(/mermaid-diagram-dark/gu) ?? []).length;
+  if (FEATURES.mermaid) {
+    if (mermaidBlocks !== entry.mermaidBlocks
+      || mermaidSources !== entry.mermaidBlocks
+      || lightDiagrams !== entry.mermaidBlocks) {
+      errors.push(`${relativeOutput}: incomplete Mermaid diagram or source output`);
+    }
+    if (FEATURES.darkMode && darkDiagrams !== entry.mermaidBlocks) {
+      errors.push(`${relativeOutput}: incomplete dark Mermaid output`);
+    }
+    renderedMermaidBlocks += mermaidBlocks;
+  } else if (mermaidBlocks !== 0) {
+    errors.push(`${relativeOutput}: rendered Mermaid while features.mermaid is disabled`);
+  }
   const htmlLanguage = html.match(/<html\b[^>]*\slang=["']([^"']+)["']/i)?.[1];
   if (htmlLanguage !== entry.lang) {
     errors.push(`${relativeOutput}: expected html lang ${entry.lang}, found ${htmlLanguage ?? "none"}`);
@@ -431,6 +451,7 @@ console.log(
       postPages: generatedPostPages.length,
       multilingualPostPages,
       postDescriptions,
+      renderedMermaidBlocks,
       checkedInternalLinks: checked.size,
       errors
     },

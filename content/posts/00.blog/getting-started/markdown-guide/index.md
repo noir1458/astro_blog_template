@@ -28,3 +28,17 @@ Inline math looks like $E = mc^2$. Display math uses a separate block:
 $$
 \sum_{k=1}^{n} k = \frac{n(n+1)}{2}
 $$
+
+## Mermaid diagrams
+
+Use a `mermaid` fenced code block. The rendered diagram appears first, and its
+source remains available from the disclosure below it.
+
+```mermaid
+flowchart LR
+    A[Write Markdown] --> B[Build with Astro]
+    B --> C[Show diagram]
+```
+
+See the [Mermaid diagram showcase](/posts/mermaid-showcase/) for flowchart,
+sequence, state, class, and entity relationship examples.

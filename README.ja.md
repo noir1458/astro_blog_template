@@ -25,7 +25,7 @@ GitHub Pagesへのデプロイに対応した、設定ファイル駆動のAstro
 ## 主な機能
 
 - レスポンシブレイアウトとダークモードを備えたAstro静的サイト
-- カテゴリー、タグ、下書き、数式、コードハイライトに対応したMarkdown投稿
+- カテゴリー、タグ、下書き、数式、Mermaidダイアグラム、コードハイライトに対応したMarkdown投稿
 - Pagefind検索、アーカイブ、ページネーション、RSS、sitemap、robots.txt
 - Canonical URL、Open Graph、Twitter Card、JSON-LD
 - 任意で有効化できるプロジェクト一覧と詳細ページ
@@ -53,6 +53,7 @@ GitHub Pagesへのデプロイに対応した、設定ファイル駆動のAstro
 ```bash
 nvm use
 npm ci
+npx playwright install --only-shell chromium
 npm run dev
 ```
 
@@ -70,7 +71,7 @@ npm run check
 2. `config/navigation.yaml` — header、sidebar、footerのリンク
 3. `config/categories.yaml` — sidebarのカテゴリーグループ、順序、非表示設定
 4. `config/social.yaml` — GitHub、LinkedIn、メール、履歴書のリンク
-5. `config/features.yaml` — 検索、RSS、sitemap、ダークモード、目次、プロジェクト、コメント
+5. `config/features.yaml` — 検索、RSS、sitemap、ダークモード、目次、Mermaid、プロジェクト、コメント
 6. `config/profile.md` — Aboutページのタイトルと紹介文
 
 空の任意ソーシャル・連携項目は画面に表示されません。`requiresFeature`を持つ
@@ -135,6 +136,17 @@ npm run new
 
 同梱の`getting-started`サンプルでは、画像、コード、数式、内部・外部リンク、
 タグ、下書きの使い方を確認できます。
+
+ダイアグラムは通常の`mermaid` fenced code blockで記述します。ダイアグラムが先に
+表示され、その下の **Mermaid ソースを表示** を開くとソースの確認とコピーができます。
+
+````md
+```mermaid
+flowchart LR
+    A --> B
+    B --> C
+```
+````
 
 ## プロジェクトを追加する
 
