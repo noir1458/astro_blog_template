@@ -24,7 +24,7 @@ Most users do not need to edit `astro.config.mjs`, `package.json`, `src/`,
 ## Features
 
 - Static Astro site with responsive layout and dark mode
-- Markdown posts with categories, tags, drafts, math, and code highlighting
+- Markdown posts with categories, tags, drafts, math, Mermaid diagrams, and code highlighting
 - Pagefind search, archives, pagination, RSS, sitemap, and robots.txt
 - Canonical URLs, Open Graph, Twitter cards, and JSON-LD
 - Optional project list and project detail pages
@@ -52,6 +52,7 @@ Most users do not need to edit `astro.config.mjs`, `package.json`, `src/`,
 ```bash
 nvm use
 npm ci
+npx playwright install --only-shell chromium
 npm run dev
 ```
 
@@ -71,7 +72,7 @@ Edit these files in order:
 3. `config/categories.yaml` — sidebar category groups, order, and hidden categories
 4. `config/social.yaml` — GitHub, LinkedIn, email, and resume links
 5. `config/features.yaml` — search, RSS, sitemap, dark mode, table of contents,
-   projects, and comments
+   Mermaid diagrams, projects, and comments
 6. `config/profile.md` — About page title and introduction
 
 Empty optional social and integration values are hidden. A navigation item with
@@ -135,6 +136,17 @@ and order in `config/categories.yaml`. Categories omitted from both `groups` and
 
 The included `getting-started` examples demonstrate an image, code, math, internal
 and external links, tags, and drafts.
+
+Use a regular `mermaid` fenced code block to add a diagram. The diagram is shown
+first; expand **View Mermaid source** below it to inspect and copy the source.
+
+````md
+```mermaid
+flowchart LR
+    A --> B
+    B --> C
+```
+````
 
 ## Add projects
 

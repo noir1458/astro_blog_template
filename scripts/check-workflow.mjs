@@ -39,6 +39,12 @@ expect(
   build?.steps?.some((step) => step.run === "npm run check"),
   "build must run the complete local validation"
 );
+expect(
+  build?.steps?.some((step) => (
+    step.run === "npx playwright install --with-deps --only-shell chromium"
+  )),
+  "build must install the Chromium headless shell for Mermaid rendering"
+);
 const pagesStatus = build?.steps?.find((step) => step.id === "pages-status");
 expect(
   String(pagesStatus?.if).includes("github.event_name != 'pull_request'"),
