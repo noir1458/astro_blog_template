@@ -8,7 +8,12 @@ A configuration-driven Astro blog with Markdown posts, projects, search, RSS,
 sitemap, SEO metadata, dark mode, and GitHub Pages deployment. The starter ships
 with short example content and builds without editing Astro or TypeScript files.
 
-![Default template home page](public/images/site/template-preview.png)
+## Preview
+
+| | Light | Dark |
+| --- | --- | --- |
+| Post list | ![Post list in light mode](public/images/site/template-preview-light.png) | ![Post list in dark mode](public/images/site/template-preview.png) |
+| Markdown post | ![Markdown post in light mode](public/images/site/template-post-light.png) | ![Markdown post in dark mode](public/images/site/template-post-dark.png) |
 
 ## What you edit
 

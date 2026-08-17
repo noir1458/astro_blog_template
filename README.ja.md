@@ -9,7 +9,12 @@ GitHub Pagesへのデプロイに対応した、設定ファイル駆動のAstro
 サンプルコンテンツが含まれており、AstroやTypeScriptのファイルを編集せずに
 ビルドできます。
 
-![テンプレートのデフォルトホーム画面](public/images/site/template-preview.png)
+## プレビュー
+
+| | ライト | ダーク |
+| --- | --- | --- |
+| 投稿一覧 | ![ライトモードの投稿一覧](public/images/site/template-preview-light.png) | ![ダークモードの投稿一覧](public/images/site/template-preview.png) |
+| Markdown投稿 | ![ライトモードのMarkdown投稿](public/images/site/template-post-light.png) | ![ダークモードのMarkdown投稿](public/images/site/template-post-dark.png) |
 
 ## 編集する場所
 

@@ -8,7 +8,12 @@ Markdown 게시물, 프로젝트, 검색, RSS, sitemap, SEO 메타데이터, 다
 GitHub Pages 배포를 지원하는 설정 기반 Astro 블로그입니다. 짧은 예제 콘텐츠가
 포함되어 있으며 Astro 또는 TypeScript 파일을 수정하지 않아도 빌드할 수 있습니다.
 
-![기본 템플릿 홈 화면](public/images/site/template-preview.png)
+## 미리보기
+
+| | 라이트 | 다크 |
+| --- | --- | --- |
+| 글 목록 | ![라이트 모드 글 목록](public/images/site/template-preview-light.png) | ![다크 모드 글 목록](public/images/site/template-preview.png) |
+| Markdown 게시물 | ![라이트 모드 Markdown 게시물](public/images/site/template-post-light.png) | ![다크 모드 Markdown 게시물](public/images/site/template-post-dark.png) |
 
 ## 수정할 영역
 
