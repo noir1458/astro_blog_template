@@ -10,10 +10,25 @@ GitHub Pages 배포를 지원하는 설정 기반 Astro 블로그입니다. 짧�
 
 ## 미리보기
 
-| | 라이트 | 다크 |
-| --- | --- | --- |
-| 글 목록 | ![라이트 모드 글 목록](public/images/site/template-preview-light.png) | ![다크 모드 글 목록](public/images/site/template-preview.png) |
-| Markdown 게시물 | ![라이트 모드 Markdown 게시물](public/images/site/template-post-light.png) | ![다크 모드 Markdown 게시물](public/images/site/template-post-dark.png) |
+### 다크 모드
+
+**글 목록**
+
+![다크 모드 글 목록](public/images/site/template-preview.png)
+
+**Markdown 게시물**
+
+![다크 모드 Markdown 게시물 전체 화면](public/images/site/template-post-dark.png)
+
+### 라이트 모드
+
+**글 목록**
+
+![라이트 모드 글 목록](public/images/site/template-preview-light.png)
+
+**Markdown 게시물**
+
+![라이트 모드 Markdown 게시물 전체 화면](public/images/site/template-post-light.png)
 
 ## 수정할 영역
 

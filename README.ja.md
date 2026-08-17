@@ -11,10 +11,25 @@ GitHub Pagesへのデプロイに対応した、設定ファイル駆動のAstro
 
 ## プレビュー
 
-| | ライト | ダーク |
-| --- | --- | --- |
-| 投稿一覧 | ![ライトモードの投稿一覧](public/images/site/template-preview-light.png) | ![ダークモードの投稿一覧](public/images/site/template-preview.png) |
-| Markdown投稿 | ![ライトモードのMarkdown投稿](public/images/site/template-post-light.png) | ![ダークモードのMarkdown投稿](public/images/site/template-post-dark.png) |
+### ダークモード
+
+**投稿一覧**
+
+![ダークモードの投稿一覧](public/images/site/template-preview.png)
+
+**Markdown投稿**
+
+![ダークモードのMarkdown投稿全体](public/images/site/template-post-dark.png)
+
+### ライトモード
+
+**投稿一覧**
+
+![ライトモードの投稿一覧](public/images/site/template-preview-light.png)
+
+**Markdown投稿**
+
+![ライトモードのMarkdown投稿全体](public/images/site/template-post-light.png)
 
 ## 編集する場所
 

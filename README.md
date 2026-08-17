@@ -10,10 +10,25 @@ with short example content and builds without editing Astro or TypeScript files.
 
 ## Preview
 
-| | Light | Dark |
-| --- | --- | --- |
-| Post list | ![Post list in light mode](public/images/site/template-preview-light.png) | ![Post list in dark mode](public/images/site/template-preview.png) |
-| Markdown post | ![Markdown post in light mode](public/images/site/template-post-light.png) | ![Markdown post in dark mode](public/images/site/template-post-dark.png) |
+### Dark
+
+**Post list**
+
+![Post list in dark mode](public/images/site/template-preview.png)
+
+**Markdown post**
+
+![Full Markdown post in dark mode](public/images/site/template-post-dark.png)
+
+### Light
+
+**Post list**
+
+![Post list in light mode](public/images/site/template-preview-light.png)
+
+**Markdown post**
+
+![Full Markdown post in light mode](public/images/site/template-post-light.png)
 
 ## What you edit
 
