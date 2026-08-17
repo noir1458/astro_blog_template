@@ -31,8 +31,8 @@ $$
 
 ## Mermaid diagrams
 
-Use a `mermaid` fenced code block. The rendered diagram appears first, and its
-source remains available from the disclosure below it.
+Use a `mermaid` fenced code block. Select the code icon (`</>`) in the rendered diagram's
+top-right corner to inspect and copy the source in a centered modal.
 
 ```mermaid
 flowchart LR

@@ -137,8 +137,8 @@ and order in `config/categories.yaml`. Categories omitted from both `groups` and
 The included `getting-started` examples demonstrate an image, code, math, internal
 and external links, tags, and drafts.
 
-Use a regular `mermaid` fenced code block to add a diagram. The diagram is shown
-first; expand **View Mermaid source** below it to inspect and copy the source.
+Use a regular `mermaid` fenced code block to add a diagram. Select the code icon (`</>`) in
+the diagram's top-right corner to inspect and copy the source in a centered modal.
 
 ````md
 ```mermaid
