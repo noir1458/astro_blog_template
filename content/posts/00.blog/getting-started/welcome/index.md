@@ -12,7 +12,13 @@ tags:
 This starter keeps customization focused on three places: `config/`, `content/`,
 and `public/images/`.
 
-![A simple content workflow](./content-flow.svg)
+```mermaid
+flowchart LR
+    Config["config/"] --> Build["Astro build"]
+    Content["content/"] --> Build
+    Images["public/images/"] --> Build
+    Build --> Blog["Your blog on GitHub Pages"]
+```
 
 Continue with the [Markdown guide](/posts/markdown-guide/) or visit the
 [Astro documentation](https://docs.astro.build/) for advanced customization.
