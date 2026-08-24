@@ -12,6 +12,8 @@ tags:
 This starter keeps customization focused on three places: `config/`, `content/`,
 and `public/images/`.
 
+![alt text](image.png)
+
 ```mermaid
 flowchart LR
     Config["config/"] --> Build["Astro build"]
