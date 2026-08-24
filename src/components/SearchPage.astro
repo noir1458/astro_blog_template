@@ -48,7 +48,10 @@ const fallbackSearchData = JSON.stringify(fallbackPosts).replaceAll("<", "\\u003
     set:html={fallbackSearchData}
   ></script>
   <script>
+    function initSearchPage() {
     const form = document.querySelector<HTMLFormElement>("[data-search-page-form]");
+    if (!form || form.dataset.searchReady === "true") return;
+    form.dataset.searchReady = "true";
     const input = document.querySelector<HTMLInputElement>("#search-query");
     const status = document.querySelector<HTMLElement>("[data-search-status]");
     const resultsRoot = document.querySelector<HTMLElement>("[data-search-results]");
@@ -119,7 +122,7 @@ const fallbackSearchData = JSON.stringify(fallbackPosts).replaceAll("<", "\\u003
       if (page > 1) nextParams.set("page", String(page));
       const search = nextParams.toString();
       const searchPath = `${siteBasePath}/search/`;
-      history.replaceState({}, "", search ? `${searchPath}?${search}` : searchPath);
+      history.replaceState(history.state, "", search ? `${searchPath}?${search}` : searchPath);
     }
 
     const paginationIcons = {
@@ -277,5 +280,8 @@ const fallbackSearchData = JSON.stringify(fallbackPosts).replaceAll("<", "\\u003
     });
 
     if (initialQuery) void search(initialQuery, currentPage);
+    }
+
+    document.addEventListener("astro:page-load", initSearchPage);
   </script>
 </BaseLayout>
