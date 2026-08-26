@@ -35,8 +35,8 @@ GitHub Pages 배포를 지원하는 설정 기반 Astro 블로그입니다. 짧�
 | 경로 | 용도 |
 | --- | --- |
 | `config/` | 사이트 정보, 프로필, 탐색 메뉴, 카테고리 그룹, 소셜 링크, 언어와 기능 설정 |
-| `content/` | Markdown 게시물, 게시물 이미지와 프로젝트 Markdown |
-| `public/images/` | 프로필, 프로젝트, favicon, manifest와 기본 소셜 이미지 |
+| `content/` | Markdown 게시물·프로젝트와 각각의 전용 이미지 |
+| `public/images/` | 프로필, favicon, manifest와 기본 소셜 이미지 |
 
 대부분의 사용자는 `astro.config.mjs`, `package.json`, `src/`,
 `src/content.config.ts`, `.github/workflows/deploy.yml`을 수정할 필요가 없습니다.
@@ -167,7 +167,7 @@ flowchart LR
 
 ## 프로젝트 추가
 
-`content/projects/<project-slug>.md`를 만듭니다. 파일명이 URL이 됩니다.
+`content/projects/<project-slug>/index.md`를 만듭니다. 폴더명이 URL이 됩니다.
 
 ```md
 ---
@@ -175,7 +175,7 @@ title: Example Project
 description: A short project summary.
 repository: https://github.com/username/example-project
 demo: https://example.com
-image: /images/projects/example-project.svg
+image: ./cover.png
 tags:
   - Astro
 featured: true
@@ -184,22 +184,26 @@ draft: false
 ---
 
 Write the longer project description here.
+
+![프로젝트 화면](./screenshot.png)
 ```
 
 `repository`, `demo`, `image`는 선택 항목입니다. 추천 프로젝트가 먼저 표시되고,
-그다음 `order` 값이 작은 순서대로 표시됩니다. `config/features.yaml`에서
-`projects: false`로 설정하면 메뉴, 목록과 상세 경로가 함께 숨겨집니다.
+그다음 `order` 값이 작은 순서대로 표시됩니다. 대표 이미지와 본문 이미지는
+`index.md`와 같은 프로젝트 폴더에 둡니다. 기존 프로젝트 URL이 바뀌지 않도록
+`content/projects/<project-slug>.md` 형식도 계속 지원합니다.
+`config/features.yaml`에서 `projects: false`로 설정하면 메뉴, 목록과 상세 경로가
+함께 숨겨집니다.
 
 ## 이미지 교체
 
 - `public/images/profile/` — About 프로필 이미지
-- `public/images/projects/` — 프로젝트 카드와 상세 이미지
 - `public/images/site/favicon.png` — favicon과 manifest 아이콘
 - `public/images/site/template-preview.png` — 기본 소셜 미리보기 이미지
 
 `config/site.yaml`의 경로와 실제 파일명을 일치시키세요. 설정된 이미지가 없으면
-정확한 필드명과 함께 빌드가 실패합니다. 게시물 전용 이미지는 `public/images/`가
-아니라 해당 Markdown 파일 옆에 둡니다.
+정확한 필드명과 함께 빌드가 실패합니다. 게시물과 프로젝트 전용 이미지는
+`public/images/`가 아니라 해당 Markdown 파일 옆에 둡니다.
 
 ## GitHub Pages 배포
 

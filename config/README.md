@@ -18,11 +18,10 @@ because they are not configured. `hidden` only removes a category from the
 sidebar; its page and post links remain available.
 
 Paths beginning with `/` refer to files or pages in this site. Replace the
-profile image in `public/images/profile/`, project images in
-`public/images/projects/`, and favicon or social-card images in
+profile image in `public/images/profile/`, and favicon or social-card images in
 `public/images/site/`. Keep the paths in `site.yaml` in sync with their files.
 The build reports the exact field when a configured image is missing.
-Post-specific images stay beside their Markdown files in `content/posts/`.
+Post- and project-specific images stay beside their Markdown files in `content/`.
 
 Set `site.url` to the complete public address. For a GitHub project site, include
 the repository path, such as `https://username.github.io/my-blog`; the build adds

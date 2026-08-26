@@ -3,7 +3,7 @@ title: Example Project
 description: A sample project card with repository, demo, image, tags, and ordering.
 repository: https://github.com/username/example-project
 demo: https://example.com
-image: /images/projects/example-project.svg
+image: ./cover.svg
 tags:
   - Astro
   - TypeScript

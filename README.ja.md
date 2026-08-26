@@ -36,8 +36,8 @@ GitHub Pagesへのデプロイに対応した、設定ファイル駆動のAstro
 | パス | 用途 |
 | --- | --- |
 | `config/` | サイト情報、プロフィール、ナビゲーション、カテゴリーグループ、ソーシャルリンク、言語、機能の設定 |
-| `content/` | Markdownの投稿、投稿画像、プロジェクトのMarkdown |
-| `public/images/` | プロフィール、プロジェクト、favicon、manifest、デフォルトのソーシャル画像 |
+| `content/` | Markdownの投稿・プロジェクトとそれぞれの専用画像 |
+| `public/images/` | プロフィール、favicon、manifest、デフォルトのソーシャル画像 |
 
 通常は `astro.config.mjs`、`package.json`、`src/`、
 `src/content.config.ts`、`.github/workflows/deploy.yml`を編集する必要はありません。
@@ -170,7 +170,7 @@ flowchart LR
 
 ## プロジェクトを追加する
 
-`content/projects/<project-slug>.md`を作成します。ファイル名がURLになります。
+`content/projects/<project-slug>/index.md`を作成します。フォルダー名がURLになります。
 
 ```md
 ---
@@ -178,7 +178,7 @@ title: Example Project
 description: A short project summary.
 repository: https://github.com/username/example-project
 demo: https://example.com
-image: /images/projects/example-project.svg
+image: ./cover.png
 tags:
   - Astro
 featured: true
@@ -187,23 +187,26 @@ draft: false
 ---
 
 Write the longer project description here.
+
+![プロジェクト画面](./screenshot.png)
 ```
 
 `repository`、`demo`、`image`は任意です。おすすめプロジェクトが先に表示され、
-その後は`order`の値が小さい順に表示されます。`config/features.yaml`で
-`projects: false`を設定すると、メニュー、一覧、詳細ルートがまとめて非表示に
-なります。
+その後は`order`の値が小さい順に表示されます。カバー画像と本文画像は
+`index.md`と同じプロジェクトフォルダーに置きます。既存のプロジェクトURLを
+維持するため、`content/projects/<project-slug>.md`形式も引き続きサポートします。
+`config/features.yaml`で`projects: false`を設定すると、メニュー、一覧、詳細ルートが
+まとめて非表示になります。
 
 ## 画像を置き換える
 
 - `public/images/profile/` — Aboutのプロフィール画像
-- `public/images/projects/` — プロジェクトのカード画像と詳細画像
 - `public/images/site/favicon.png` — faviconとmanifestアイコン
 - `public/images/site/template-preview.png` — デフォルトのソーシャルプレビュー画像
 
 `config/site.yaml`のパスと実際のファイル名を一致させてください。設定した画像が
-存在しない場合は、該当する項目名とともにビルドが失敗します。投稿専用の画像は
-`public/images/`ではなく、対象のMarkdownファイルと同じ場所に置きます。
+存在しない場合は、該当する項目名とともにビルドが失敗します。投稿とプロジェクト専用の
+画像は`public/images/`ではなく、対象のMarkdownファイルと同じ場所に置きます。
 
 ## GitHub Pagesへのデプロイ
 

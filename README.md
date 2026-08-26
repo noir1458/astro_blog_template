@@ -35,8 +35,8 @@ with short example content and builds without editing Astro or TypeScript files.
 | Path | Purpose |
 | --- | --- |
 | `config/` | Site identity, profile, navigation, category groups, social links, languages, and features |
-| `content/` | Markdown posts, post images, and project Markdown |
-| `public/images/` | Profile, project, favicon, manifest, and default social images |
+| `content/` | Markdown posts and projects with their local images |
+| `public/images/` | Profile, favicon, manifest, and default social images |
 
 Most users do not need to edit `astro.config.mjs`, `package.json`, `src/`,
 `src/content.config.ts`, or `.github/workflows/deploy.yml`.
@@ -170,7 +170,7 @@ flowchart LR
 
 ## Add projects
 
-Create `content/projects/<project-slug>.md`. The filename becomes the URL.
+Create `content/projects/<project-slug>/index.md`. The folder name becomes the URL.
 
 ```md
 ---
@@ -178,7 +178,7 @@ title: Example Project
 description: A short project summary.
 repository: https://github.com/username/example-project
 demo: https://example.com
-image: /images/projects/example-project.svg
+image: ./cover.png
 tags:
   - Astro
 featured: true
@@ -187,22 +187,25 @@ draft: false
 ---
 
 Write the longer project description here.
+
+![Project screen](./screenshot.png)
 ```
 
 `repository`, `demo`, and `image` are optional. Featured projects appear first,
-then lower `order` values. Set `projects: false` in `config/features.yaml` to hide
-the menu, list, and detail routes together.
+then lower `order` values. Keep the cover and body images beside `index.md` in the
+same project folder. The legacy `content/projects/<project-slug>.md` layout remains
+supported so existing project URLs do not change. Set `projects: false` in
+`config/features.yaml` to hide the menu, list, and detail routes together.
 
 ## Replace images
 
 - `public/images/profile/` — About profile image
-- `public/images/projects/` — project card and detail images
 - `public/images/site/favicon.png` — favicon and manifest icon
 - `public/images/site/template-preview.png` — default social preview image
 
 Keep `config/site.yaml` paths synchronized with the filenames. Missing configured
-images fail the build with the exact field name. Post-only images belong beside
-their Markdown, not in `public/images/`.
+images fail the build with the exact field name. Post- and project-only images
+belong beside their Markdown, not in `public/images/`.
 
 ## GitHub Pages deployment
 
