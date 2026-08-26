@@ -90,7 +90,7 @@ Edit these files in order:
    public integration identifiers
 2. `config/navigation.yaml` — header, sidebar, and footer links
 3. `config/categories.yaml` — sidebar category groups, order, and hidden categories
-4. `config/social.yaml` — GitHub, LinkedIn, email, and resume links
+4. `config/social.yaml` — GitHub, LinkedIn, X, Facebook, and email links
 5. `config/features.yaml` — search, RSS, sitemap, dark mode, table of contents,
    Mermaid diagrams, projects, and comments
 6. `config/profile.md` — About page title and introduction

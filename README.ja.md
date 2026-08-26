@@ -90,7 +90,7 @@ npm run check
 1. `config/site.yaml` — タイトル、公開URL、locale、著者、画像、任意の公開連携ID
 2. `config/navigation.yaml` — header、sidebar、footerのリンク
 3. `config/categories.yaml` — sidebarのカテゴリーグループ、順序、非表示設定
-4. `config/social.yaml` — GitHub、LinkedIn、メール、履歴書のリンク
+4. `config/social.yaml` — GitHub、LinkedIn、X、Facebook、メールのリンク
 5. `config/features.yaml` — 検索、RSS、sitemap、ダークモード、目次、Mermaid、プロジェクト、コメント
 6. `config/profile.md` — Aboutページのタイトルと紹介文
 

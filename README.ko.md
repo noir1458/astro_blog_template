@@ -89,7 +89,7 @@ npm run check
 1. `config/site.yaml` — 제목, 공개 URL, locale, 작성자, 이미지와 선택적 공개 연동 식별자
 2. `config/navigation.yaml` — header, sidebar와 footer 링크
 3. `config/categories.yaml` — sidebar 카테고리 그룹, 순서와 숨김 설정
-4. `config/social.yaml` — GitHub, LinkedIn, 이메일과 이력서 링크
+4. `config/social.yaml` — GitHub, LinkedIn, X, Facebook과 이메일 링크
 5. `config/features.yaml` — 검색, RSS, sitemap, 다크 모드, 목차, Mermaid, 프로젝트와 댓글
 6. `config/profile.md` — About 페이지 제목과 소개
 
