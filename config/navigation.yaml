@@ -21,10 +21,9 @@ sidebar:
     href: https://github.com/username
     icon: github
     external: true
-  - label: RSS feed
-    href: /rss.xml
-    icon: rss
-    requiresFeature: rss
+  - label: Email
+    href: mailto:hello@example.com
+    icon: mail
 
 footer:
   - label: RSS

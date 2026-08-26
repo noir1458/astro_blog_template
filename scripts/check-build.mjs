@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import {
+  APPEARANCE,
   FEATURES,
   NAVIGATION,
   PROFILE,
@@ -190,6 +191,10 @@ if (indexHtml.includes("data-search-shell") !== FEATURES.search) {
 
 if (indexHtml.includes("data-theme-picker") !== FEATURES.darkMode) {
   errors.push(`index.html: theme UI does not match features.darkMode=${FEATURES.darkMode}`);
+}
+
+if (!indexHtml.includes(`data-accent="${APPEARANCE.accent}"`)) {
+  errors.push(`index.html: configured accent is missing: ${APPEARANCE.accent}`);
 }
 
 if (indexHtml.includes('type="application/rss+xml"') !== FEATURES.rss) {

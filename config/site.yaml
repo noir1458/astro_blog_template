@@ -16,6 +16,9 @@ branding:
   manifestIcon: /images/site/favicon.png
   defaultOgImage: /images/site/template-preview.png
 
+appearance:
+  accent: purple # cyan | green | purple | rose
+
 languages:
   en:
     label: English

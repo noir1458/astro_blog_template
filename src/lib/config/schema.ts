@@ -11,6 +11,13 @@ export const FEATURE_NAMES = [
   "comments"
 ] as const;
 
+export const ACCENT_PRESETS = [
+  "cyan",
+  "green",
+  "purple",
+  "rose"
+] as const;
+
 const emptyToUndefined = (value: unknown) => {
   if (value === null) return undefined;
   if (typeof value === "string" && value.trim() === "") return undefined;
@@ -97,6 +104,9 @@ export const siteFileSchema = z.object({
     manifestIcon: publicPath,
     defaultOgImage: publicPath
   }).strict(),
+  appearance: z.object({
+    accent: z.enum(ACCENT_PRESETS).default("cyan")
+  }).strict().default({ accent: "cyan" }),
   languages: z.record(languageCode, languageDefinition).refine(
     (languages) => Object.keys(languages).length > 0,
     "must define at least one language"
@@ -113,7 +123,7 @@ export const siteFileSchema = z.object({
 
 const navigationHref = nonEmptyString.refine((value) => {
   if (value.startsWith("/") && !value.startsWith("//")) return true;
-  if (value.startsWith("mailto:")) return value.length > "mailto:".length;
+  if (value.startsWith("mailto:")) return true;
   try {
     const protocol = new URL(value).protocol;
     return protocol === "http:" || protocol === "https:";
@@ -126,7 +136,7 @@ const navigationLinkSchema = z.object({
   label: nonEmptyString,
   href: navigationHref,
   external: z.boolean().default(false),
-  icon: z.enum(["user", "github", "linkedin", "rss"]).optional(),
+  icon: z.enum(["user", "github", "linkedin", "mail", "rss"]).optional(),
   requiresFeature: z.enum(FEATURE_NAMES).optional()
 }).strict().superRefine((link, context) => {
   if (link.external && link.href.startsWith("/")) {
@@ -134,6 +144,13 @@ const navigationLinkSchema = z.object({
       code: "custom",
       path: ["external"],
       message: "cannot be true for an internal site path"
+    });
+  }
+  if (link.href === "mailto:" && link.icon !== "mail") {
+    context.addIssue({
+      code: "custom",
+      path: ["href"],
+      message: "an empty mailto link requires the mail icon"
     });
   }
 });
