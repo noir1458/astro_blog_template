@@ -28,9 +28,18 @@ Set `site.url` to the complete public address. For a GitHub project site, includ
 the repository path, such as `https://username.github.io/my-blog`; the build adds
 that path to internal links and assets automatically.
 
-Choose the site accent in `site.yaml` with `appearance.accent`. Supported values
-are `cyan`, `green`, `purple`, and `rose`. The preset supplies coordinated
-light and dark colors; `cyan` is the default.
+Choose the site's default accent hue in `site.yaml` with a value from 0 through
+360:
+
+```yaml
+appearance:
+  accentHue: 248
+```
+
+The theme controls saturation, lightness, and contrast for consistent light and
+dark palettes. Every visitor starts with the configured hue. They can adjust it
+with the vertical slider in the palette menu, and that personal hue is stored in
+their browser.
 
 Do not put API keys, access tokens, passwords, or other secrets in this folder.
 Analytics, site-verification, and Giscus identifiers are public browser

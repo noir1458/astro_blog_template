@@ -17,7 +17,7 @@ branding:
   defaultOgImage: /images/site/template-preview.png
 
 appearance:
-  accent: purple # cyan | green | purple | rose
+  accentHue: 250 # 0-360
 
 languages:
   en:

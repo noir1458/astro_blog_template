@@ -109,6 +109,17 @@ site:
 `https://example.com` 형식을 사용합니다. 경로는 링크, asset, RSS, sitemap,
 canonical URL과 web manifest에 자동으로 적용됩니다. 마지막에 `/`를 붙이지 마세요.
 
+사이트의 기본 accent Hue를 0부터 360 사이의 값으로 설정합니다.
+
+```yaml
+appearance:
+  accentHue: 248
+```
+
+Light/dark theme의 saturation, lightness와 contrast는 템플릿이 자동으로 정합니다.
+모든 방문자는 이 Hue로 시작하며, palette 메뉴의 세로 slider로 조정할 수 있습니다.
+방문자가 조정한 Hue는 해당 브라우저에 저장됩니다.
+
 ## 게시물 작성
 
 다음 경로 아래에 게시물을 만듭니다.

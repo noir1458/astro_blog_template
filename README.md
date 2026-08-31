@@ -112,6 +112,17 @@ Use `https://username.github.io` for a user site, the full
 RSS, sitemap, canonical URLs, and the web manifest automatically. Do not add a
 trailing slash.
 
+Set the site's default accent hue from 0 through 360:
+
+```yaml
+appearance:
+  accentHue: 248
+```
+
+The template derives saturation, lightness, and contrast for both light and dark
+themes. Every visitor starts with this hue and can adjust it with the vertical
+slider in the palette menu. Their personal hue is stored in their browser.
+
 ## Write posts
 
 Create posts under:

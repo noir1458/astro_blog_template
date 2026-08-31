@@ -110,6 +110,17 @@ site:
 `https://example.com`を使用します。パスはリンク、asset、RSS、sitemap、
 canonical URL、web manifestに自動で反映されます。末尾に`/`を付けないでください。
 
+サイトのデフォルトaccent Hueを0から360までの値で設定します。
+
+```yaml
+appearance:
+  accentHue: 248
+```
+
+Light/dark themeのsaturation、lightness、contrastはテンプレートが自動で調整します。
+すべての訪問者はこのHueから始まり、paletteメニューの縦sliderで調整できます。
+訪問者が調整したHueはそのブラウザーに保存されます。
+
 ## 投稿を書く
 
 次のパス配下に投稿を作成します。
