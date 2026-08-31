@@ -15,9 +15,8 @@ function languageFilename(language) {
 function fixture(name, sourceLanguage = SITE.language) {
   const directory = fs.mkdtempSync(path.join(postsRoot, `.translation-test-${name}-`));
   const sourcePath = path.join(directory, languageFilename(sourceLanguage));
-  const languageMetadata = sourceLanguage === SITE.language
-    ? ""
-    : `translationKey: test-post\nlang: ${sourceLanguage}\n`;
+  const languageMetadata =
+    sourceLanguage === SITE.language ? "" : `translationKey: test-post\nlang: ${sourceLanguage}\n`;
   const source = `---
 title: 테스트 글
 slug: test-post
@@ -89,9 +88,7 @@ test("valid translations pass", () => {
 });
 
 test("a non-default source fills every other language slot", () => {
-  const sourceLanguage = SUPPORTED_LANGUAGE_CODES.find(
-    (language) => language !== SITE.language
-  );
+  const sourceLanguage = SUPPORTED_LANGUAGE_CODES.find((language) => language !== SITE.language);
   assert.ok(sourceLanguage);
   const item = fixture("non-default", sourceLanguage);
   try {
@@ -145,11 +142,14 @@ test("changed code, math, and destinations are rejected", () => {
   try {
     const before = snapshot(item.relative);
     const [changedLanguage, ...remainingLanguages] = before.targetLanguages;
-    fs.writeFileSync(path.join(item.directory, languageFilename(changedLanguage)), translation(changedLanguage, {
-      code: "const value = 2;",
-      math: "x^2 - y^2",
-      url: "https://invalid.example"
-    }));
+    fs.writeFileSync(
+      path.join(item.directory, languageFilename(changedLanguage)),
+      translation(changedLanguage, {
+        code: "const value = 2;",
+        math: "x^2 - y^2",
+        url: "https://invalid.example"
+      })
+    );
     for (const language of remainingLanguages) {
       fs.writeFileSync(
         path.join(item.directory, languageFilename(language)),

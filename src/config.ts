@@ -20,9 +20,7 @@ const configuredSiteUrl = new URL(USER_CONFIG.site.url);
 const basePath = siteBasePath(USER_CONFIG.site.url);
 
 if (!defaultLanguage) {
-  throw new Error(
-    `No language configuration found for ${USER_CONFIG.site.language}.`
-  );
+  throw new Error(`No language configuration found for ${USER_CONFIG.site.language}.`);
 }
 
 export const SITE = {

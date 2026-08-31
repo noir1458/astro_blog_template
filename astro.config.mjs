@@ -15,15 +15,18 @@ import { rehypeSitePaths } from "./src/lib/markdown/rehypeSitePaths.ts";
 
 const mermaidPlugins = FEATURES.mermaid
   ? [
-    [rehypeMermaidSource, { defaultLanguage: SITE.language }],
-    [rehypeMermaid, {
-      strategy: "img-svg",
-      colorScheme: "light",
-      mermaidConfig: MERMAID_LIGHT_CONFIG,
-      dark: FEATURES.darkMode ? MERMAID_DARK_CONFIG : undefined
-    }],
-    rehypeMermaidTheme
-  ]
+      [rehypeMermaidSource, { defaultLanguage: SITE.language }],
+      [
+        rehypeMermaid,
+        {
+          strategy: "img-svg",
+          colorScheme: "light",
+          mermaidConfig: MERMAID_LIGHT_CONFIG,
+          dark: FEATURES.darkMode ? MERMAID_DARK_CONFIG : undefined
+        }
+      ],
+      rehypeMermaidTheme
+    ]
   : [];
 
 export default defineConfig({
@@ -33,9 +36,11 @@ export default defineConfig({
   output: "static",
   trailingSlash: "always",
   integrations: FEATURES.sitemap
-    ? [sitemap({
-      filter: (page) => !new URL(page).pathname.endsWith("/search/")
-    })]
+    ? [
+        sitemap({
+          filter: (page) => !new URL(page).pathname.endsWith("/search/")
+        })
+      ]
     : [],
   markdown: {
     syntaxHighlight: {

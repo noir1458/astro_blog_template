@@ -16,6 +16,9 @@
     "new": "node scripts/new-post.mjs",
     "translate:snapshot": "node scripts/translation-safety.mjs snapshot",
     "translate:verify": "node scripts/translation-safety.mjs verify",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
     "check:privacy": "node scripts/check-template-privacy.mjs",
     "check:workflow": "node scripts/check-workflow.mjs",
     "check:config": "node --test scripts/config.test.mjs scripts/sidebar-categories.test.mjs scripts/site-paths.test.mjs && node scripts/check-config.mjs && node scripts/check-user-boundaries.mjs",
@@ -24,7 +27,7 @@
     "check:build": "node scripts/check-build.mjs",
     "check:base": "node scripts/check-base-path-build.mjs",
     "check:features": "node scripts/check-feature-build.mjs",
-    "check": "npm run check:privacy && npm run check:workflow && npm run check:config && npm run check:translation && npm run check:content && astro check && npm run build && npm run check:build && npm run check:base && npm run check:features",
+    "check": "npm run check:privacy && npm run check:workflow && npm run lint && npm run format:check && npm run check:config && npm run check:translation && npm run check:content && astro check && npm run build && npm run check:build && npm run check:base && npm run check:features",
     "publish": "node scripts/publish.mjs"
   },
   "dependencies": {
@@ -43,6 +46,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
+    "@biomejs/biome": "2.5.11",
     "playwright": "^1.62.1",
     "typescript": "^5.9.0"
   }

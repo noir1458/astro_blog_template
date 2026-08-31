@@ -25,10 +25,16 @@ for (const relativePath of forbiddenPaths) {
   }
 }
 
-console.log(JSON.stringify({
-  scannedFiles: files.length,
-  forbiddenPersonalBlogPaths: forbiddenPaths.length,
-  violations
-}, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      scannedFiles: files.length,
+      forbiddenPersonalBlogPaths: forbiddenPaths.length,
+      violations
+    },
+    null,
+    2
+  )
+);
 
 if (violations.length > 0) process.exitCode = 1;

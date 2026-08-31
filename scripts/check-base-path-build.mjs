@@ -15,24 +15,19 @@ const siteUrl = `https://username.github.io${basePath}`;
 try {
   fs.cpSync(path.join(projectRoot, "config"), configDirectory, { recursive: true });
   const siteConfigPath = path.join(configDirectory, "site.yaml");
-  const siteConfig = fs.readFileSync(siteConfigPath, "utf8").replace(
-    "https://username.github.io",
-    siteUrl
-  );
+  const siteConfig = fs
+    .readFileSync(siteConfigPath, "utf8")
+    .replace("https://username.github.io", siteUrl);
   fs.writeFileSync(siteConfigPath, siteConfig);
 
-  const build = spawnSync(
-    process.execPath,
-    [astroEntry, "build", "--outDir", outputDirectory],
-    {
-      cwd: projectRoot,
-      encoding: "utf8",
-      env: {
-        ...process.env,
-        ASTRO_BLOG_CONFIG_DIR: configDirectory
-      }
+  const build = spawnSync(process.execPath, [astroEntry, "build", "--outDir", outputDirectory], {
+    cwd: projectRoot,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      ASTRO_BLOG_CONFIG_DIR: configDirectory
     }
-  );
+  });
 
   if (build.status !== 0) {
     process.stdout.write(build.stdout ?? "");
@@ -41,13 +36,10 @@ try {
   }
 
   const indexHtml = fs.readFileSync(path.join(outputDirectory, "index.html"), "utf8");
-  const postHtml = fs.readFileSync(
-    path.join(outputDirectory, "posts/welcome/index.html"),
-    "utf8"
-  );
-  const rootRelativeAttributes = [...`${indexHtml}\n${postHtml}`.matchAll(
-    /\b(?:href|src|action)="(\/[^"]*)"/gu
-  )].map((match) => match[1]);
+  const postHtml = fs.readFileSync(path.join(outputDirectory, "posts/welcome/index.html"), "utf8");
+  const rootRelativeAttributes = [
+    ...`${indexHtml}\n${postHtml}`.matchAll(/\b(?:href|src|action)="(\/[^"]*)"/gu)
+  ].map((match) => match[1]);
   const unprefixedAttributes = rootRelativeAttributes.filter(
     (value) => value !== `${basePath}/` && !value.startsWith(`${basePath}/`)
   );
@@ -74,14 +66,20 @@ try {
   assert.equal(manifest.scope, `${basePath}/`);
   assert.equal(manifest.icons[0].src, `${basePath}/images/site/favicon.png`);
 
-  console.log(JSON.stringify({
-    siteUrl,
-    checkedRootRelativeAttributes: rootRelativeAttributes.length,
-    rss: true,
-    sitemap: true,
-    manifest: true,
-    errors: []
-  }, null, 2));
+  console.log(
+    JSON.stringify(
+      {
+        siteUrl,
+        checkedRootRelativeAttributes: rootRelativeAttributes.length,
+        rss: true,
+        sitemap: true,
+        manifest: true,
+        errors: []
+      },
+      null,
+      2
+    )
+  );
 } finally {
   fs.rmSync(temporaryRoot, { recursive: true, force: true });
 }

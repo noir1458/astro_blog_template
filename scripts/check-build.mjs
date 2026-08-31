@@ -28,9 +28,10 @@ function walk(directory, predicate = () => true) {
 
 function resolvesPublicPath(urlPath) {
   const clean = decodeURI(urlPath.split(/[?#]/)[0]);
-  const withoutBase = SITE.basePath && (
-    clean === SITE.basePath || clean.startsWith(`${SITE.basePath}/`)
-  ) ? clean.slice(SITE.basePath.length) || "/" : clean;
+  const withoutBase =
+    SITE.basePath && (clean === SITE.basePath || clean.startsWith(`${SITE.basePath}/`))
+      ? clean.slice(SITE.basePath.length) || "/"
+      : clean;
   const candidate = path.join(distRoot, withoutBase.replace(/^\//, ""));
   return (
     fs.existsSync(candidate)
@@ -76,13 +77,17 @@ function structuredData(html, label) {
 }
 
 function escapeXml(value) {
-  return value.replace(/[&<>"']/gu, (character) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    "\"": "&quot;",
-    "'": "&apos;"
-  })[character] ?? character);
+  return value.replace(
+    /[&<>"']/gu,
+    (character) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&apos;"
+      })[character] ?? character
+  );
 }
 
 if (!fs.existsSync(distRoot)) {
@@ -205,7 +210,7 @@ if (indexHtml.includes("data-accent-value")) {
 }
 
 if (
-  !indexHtml.includes('data-accent-hue')
+  !indexHtml.includes("data-accent-hue")
   || !indexHtml.includes('max="360"')
   || !indexHtml.includes('aria-orientation="vertical"')
 ) {
@@ -227,17 +232,11 @@ if (indexHtml.includes('type="application/rss+xml"') !== FEATURES.rss) {
   errors.push(`index.html: RSS metadata does not match features.rss=${FEATURES.rss}`);
 }
 
-if (
-  !FEATURES.projects
-  && fs.existsSync(path.join(distRoot, "projects/index.html"))
-) {
+if (!FEATURES.projects && fs.existsSync(path.join(distRoot, "projects/index.html"))) {
   errors.push("projects/index.html: generated while features.projects is disabled");
 }
 
-if (
-  SITE.googleVerification
-  && !indexHtml.includes(`content="${SITE.googleVerification}"`)
-) {
+if (SITE.googleVerification && !indexHtml.includes(`content="${SITE.googleVerification}"`)) {
   errors.push("index.html: configured Google site verification is missing");
 }
 
@@ -266,8 +265,7 @@ if (FEATURES.rss) {
   }
   const expectedRssItems = walk(contentRoot, (file) => file.endsWith(".md"))
     .map((file) => matter(fs.readFileSync(file, "utf8")).data)
-    .filter((data) => !data.draft && (data.lang ?? defaultLanguage) === defaultLanguage)
-    .length;
+    .filter((data) => !data.draft && (data.lang ?? defaultLanguage) === defaultLanguage).length;
   const rssItems = [...rssFeed.matchAll(/<item>/gu)].length;
   if (rssItems !== expectedRssItems) {
     errors.push(`rss.xml: expected ${expectedRssItems} items, found ${rssItems}`);
@@ -315,9 +313,7 @@ if (aboutHtml.includes(">CV</a>")) errors.push("about/index.html: obsolete CV li
 
 let manifest;
 try {
-  manifest = JSON.parse(
-    fs.readFileSync(path.join(distRoot, "manifest.webmanifest"), "utf8")
-  );
+  manifest = JSON.parse(fs.readFileSync(path.join(distRoot, "manifest.webmanifest"), "utf8"));
 } catch (error) {
   errors.push(`manifest.webmanifest: invalid JSON (${error.message})`);
 }
@@ -385,15 +381,15 @@ for (const entry of contentEntries) {
   const html = fs.readFileSync(outputFile, "utf8");
   const relativeOutput = path.relative(distRoot, outputFile);
   const mermaidBlocks = (html.match(/class="mermaid-block"/gu) ?? []).length;
-  const mermaidSources = (html.match(
-    /<button\b[^>]*class="mermaid-source"/gu
-  ) ?? []).length;
+  const mermaidSources = (html.match(/<button\b[^>]*class="mermaid-source"/gu) ?? []).length;
   const lightDiagrams = (html.match(/mermaid-diagram-light/gu) ?? []).length;
   const darkDiagrams = (html.match(/mermaid-diagram-dark/gu) ?? []).length;
   if (FEATURES.mermaid) {
-    if (mermaidBlocks !== entry.mermaidBlocks
+    if (
+      mermaidBlocks !== entry.mermaidBlocks
       || mermaidSources !== entry.mermaidBlocks
-      || lightDiagrams !== entry.mermaidBlocks) {
+      || lightDiagrams !== entry.mermaidBlocks
+    ) {
       errors.push(`${relativeOutput}: incomplete Mermaid diagram or source output`);
     }
     if (FEATURES.darkMode && darkDiagrams !== entry.mermaidBlocks) {
@@ -405,19 +401,23 @@ for (const entry of contentEntries) {
   }
   const htmlLanguage = html.match(/<html\b[^>]*\slang=["']([^"']+)["']/i)?.[1];
   if (htmlLanguage !== entry.lang) {
-    errors.push(`${relativeOutput}: expected html lang ${entry.lang}, found ${htmlLanguage ?? "none"}`);
+    errors.push(
+      `${relativeOutput}: expected html lang ${entry.lang}, found ${htmlLanguage ?? "none"}`
+    );
   }
 
   const canonicalTag = findTag(html, "link", "rel", "canonical");
   const canonical = canonicalTag ? tagAttribute(canonicalTag, "href") : undefined;
   const expectedCanonical = absoluteSiteUrl(urlPath);
   if (canonical !== expectedCanonical) {
-    errors.push(`${relativeOutput}: expected canonical ${expectedCanonical}, found ${canonical ?? "none"}`);
+    errors.push(
+      `${relativeOutput}: expected canonical ${expectedCanonical}, found ${canonical ?? "none"}`
+    );
   }
 
-  const description = html.match(
-    /<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i
-  )?.[1]?.trim();
+  const description = html
+    .match(/<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i)?.[1]
+    ?.trim();
   if (!description) {
     errors.push(`${relativeOutput}: missing generated meta description`);
   } else {
@@ -437,10 +437,7 @@ for (const entry of contentEntries) {
     if (postSchema["@type"] !== "BlogPosting") {
       errors.push(`${relativeOutput}: JSON-LD must describe a BlogPosting`);
     }
-    if (
-      postSchema.url !== expectedCanonical
-      || postSchema.mainEntityOfPage !== expectedCanonical
-    ) {
+    if (postSchema.url !== expectedCanonical || postSchema.mainEntityOfPage !== expectedCanonical) {
       errors.push(`${relativeOutput}: JSON-LD URL does not match canonical`);
     }
     if (postSchema.author?.name !== SITE.author.name) {
@@ -457,10 +454,11 @@ for (const entry of contentEntries) {
     for (const translation of group) {
       const alternateTag = [...html.matchAll(/<link\b[^>]*>/gi)]
         .map((match) => match[0])
-        .find((tag) => (
-          tagAttribute(tag, "rel") === "alternate"
-          && tagAttribute(tag, "hreflang") === translation.lang
-        ));
+        .find(
+          (tag) =>
+            tagAttribute(tag, "rel") === "alternate"
+            && tagAttribute(tag, "hreflang") === translation.lang
+        );
       const expectedHref = absoluteSiteUrl(postPath(translation));
       if (!alternateTag || tagAttribute(alternateTag, "href") !== expectedHref) {
         errors.push(`${relativeOutput}: missing reciprocal hreflang ${translation.lang}`);
@@ -468,10 +466,10 @@ for (const entry of contentEntries) {
     }
     const xDefaultTag = [...html.matchAll(/<link\b[^>]*>/gi)]
       .map((match) => match[0])
-      .find((tag) => (
-        tagAttribute(tag, "rel") === "alternate"
-        && tagAttribute(tag, "hreflang") === "x-default"
-      ));
+      .find(
+        (tag) =>
+          tagAttribute(tag, "rel") === "alternate" && tagAttribute(tag, "hreflang") === "x-default"
+      );
     if (!xDefaultTag) {
       errors.push(`${relativeOutput}: missing hreflang x-default`);
     }
@@ -481,13 +479,12 @@ for (const entry of contentEntries) {
   }
 }
 
-const generatedPostPages = walk(distRoot, (file) => (
-  file.endsWith("/index.html") && /(?:^|\/)posts\//u.test(path.relative(distRoot, file))
-));
+const generatedPostPages = walk(
+  distRoot,
+  (file) => file.endsWith("/index.html") && /(?:^|\/)posts\//u.test(path.relative(distRoot, file))
+);
 if (generatedPostPages.length !== contentEntries.length) {
-  errors.push(
-    `expected ${contentEntries.length} post pages, found ${generatedPostPages.length}`
-  );
+  errors.push(`expected ${contentEntries.length} post pages, found ${generatedPostPages.length}`);
 }
 
 console.log(
