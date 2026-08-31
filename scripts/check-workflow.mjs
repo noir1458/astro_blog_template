@@ -52,17 +52,23 @@ expect(
   "build must install the Chromium headless shell for Mermaid rendering"
 );
 const pagesStatus = build?.steps?.find((step) => step.id === "pages-status");
+// biome-ignore lint/suspicious/noTemplateCurlyInString: GitHub Actions expressions are intentionally checked as literal strings.
+const githubRepositoryExpression = "${{ github.repository }}";
+// biome-ignore lint/suspicious/noTemplateCurlyInString: GitHub Actions expressions are intentionally checked as literal strings.
+const githubTokenExpression = "${{ github.token }}";
+// biome-ignore lint/suspicious/noTemplateCurlyInString: The workflow shell variable is intentionally checked as a literal string.
+const pagesApiEndpoint = "api.github.com/repos/${GH_REPOSITORY}/pages";
 expect(
   String(pagesStatus?.if).includes("github.event_name != 'pull_request'"),
   "Pages detection must be disabled for pull requests"
 );
 expect(
-  pagesStatus?.env?.GH_REPOSITORY === "${{ github.repository }}"
-    && pagesStatus?.env?.GH_TOKEN === "${{ github.token }}",
+  pagesStatus?.env?.GH_REPOSITORY === githubRepositoryExpression
+    && pagesStatus?.env?.GH_TOKEN === githubTokenExpression,
   "Pages detection must use the current repository and GitHub token"
 );
 expect(
-  String(pagesStatus?.run).includes("api.github.com/repos/${GH_REPOSITORY}/pages")
+  String(pagesStatus?.run).includes(pagesApiEndpoint)
     && String(pagesStatus?.run).includes("404)")
     && String(pagesStatus?.run).includes("enabled=false"),
   "Pages detection must skip deployment when Pages is not enabled"
