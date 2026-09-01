@@ -44,7 +44,7 @@ Most users do not need to edit `astro.config.mjs`, `package.json`, `src/`,
 ## Features
 
 - Static Astro site with responsive layout and dark mode
-- Markdown posts with categories, tags, drafts, math, Mermaid diagrams, and code highlighting
+- Markdown posts with categories, tags, drafts, math, admonitions, Mermaid diagrams, and code highlighting
 - Pagefind search, archives, pagination, RSS, sitemap, and robots.txt
 - Canonical URLs, Open Graph, Twitter cards, and JSON-LD
 - Optional project list and project detail pages

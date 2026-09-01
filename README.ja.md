@@ -45,7 +45,7 @@ GitHub Pagesへのデプロイに対応した、設定ファイル駆動のAstro
 ## 主な機能
 
 - レスポンシブレイアウトとダークモードを備えたAstro静的サイト
-- カテゴリー、タグ、下書き、数式、Mermaidダイアグラム、コードハイライトに対応したMarkdown投稿
+- カテゴリー、タグ、下書き、数式、admonition、Mermaidダイアグラム、コードハイライトに対応したMarkdown投稿
 - Pagefind検索、アーカイブ、ページネーション、RSS、sitemap、robots.txt
 - Canonical URL、Open Graph、Twitter Card、JSON-LD
 - 任意で有効化できるプロジェクト一覧と詳細ページ

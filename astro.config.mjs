@@ -12,6 +12,7 @@ import {
   rehypeMermaidTheme
 } from "./src/lib/markdown/rehypeMermaid.ts";
 import { rehypeSitePaths } from "./src/lib/markdown/rehypeSitePaths.ts";
+import { remarkAdmonitions } from "./src/lib/markdown/remarkAdmonitions.ts";
 
 const mermaidPlugins = FEATURES.mermaid
   ? [
@@ -48,7 +49,7 @@ export default defineConfig({
       excludeLangs: FEATURES.mermaid ? ["mermaid"] : []
     },
     processor: unified({
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [remarkMath, remarkAdmonitions],
       rehypePlugins: [
         [rehypeKatex, { output: "htmlAndMathml", strict: false }],
         ...mermaidPlugins,

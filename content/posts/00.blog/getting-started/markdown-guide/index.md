@@ -44,6 +44,16 @@ $$
 \sum_{k=1}^{n} k = \frac{n(n+1)}{2}
 $$
 
+## Admonitions
+
+Use GitHub-style markers to highlight supplementary information or potential problems.
+
+> [!NOTE]
+> Use notes for supplementary information.
+
+> [!WARNING]
+> Use warnings when an action may cause problems.
+
 ## Mermaid diagrams
 
 Use a `mermaid` fenced code block. Select the code icon (`</>`) in the rendered diagram's
