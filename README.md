@@ -123,6 +123,23 @@ The template derives saturation, lightness, and contrast for both light and dark
 themes. Every visitor starts with this hue and can adjust it with the vertical
 slider in the palette menu. Their personal hue is stored in their browser.
 
+The homepage banner is optional and disabled by default. Put a local image in
+`public/`, then enable and adjust it in `config/site.yaml`:
+
+```yaml
+appearance:
+  banner:
+    enabled: true
+    image: /images/site/banner.jpg
+    position: center
+    height: 320
+    mobileHeight: 220
+    overlayOpacity: 0.18
+```
+
+The image appears below the existing header and fades into the active light or
+dark theme background. Project-site base paths are applied automatically.
+
 ## Write posts
 
 Create posts under:

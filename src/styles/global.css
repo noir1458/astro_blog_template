@@ -228,6 +228,38 @@ button {
   padding-top: 22px;
 }
 
+.hero-banner {
+  position: relative;
+  height: var(--banner-height);
+  margin-top: 24px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--bg);
+}
+
+.hero-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--banner-position);
+}
+
+.hero-banner::before,
+.hero-banner::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.hero-banner::before {
+  background: rgb(0 0 0 / var(--banner-overlay-opacity));
+}
+
+.hero-banner::after {
+  background: linear-gradient(to bottom, transparent 52%, var(--bg) 100%);
+}
+
 .title-row {
   display: flex;
   align-items: center;
@@ -2559,6 +2591,11 @@ button {
 
   .site-header {
     padding-top: 14px;
+  }
+
+  .hero-banner {
+    height: var(--banner-mobile-height);
+    margin-top: 18px;
   }
 
   .title-row {

@@ -41,6 +41,24 @@ dark palettes. Every visitor starts with the configured hue. They can adjust it
 with the vertical slider in the palette menu, and that personal hue is stored in
 their browser.
 
+The optional homepage banner is disabled by default. To use it, place a local
+image under `public/` and configure `appearance.banner` in `site.yaml`:
+
+```yaml
+appearance:
+  banner:
+    enabled: true
+    image: /images/site/banner.jpg
+    position: center
+    height: 320
+    mobileHeight: 220
+    overlayOpacity: 0.18
+```
+
+`position` accepts `center`, `top`, `bottom`, `left`, or `right`. Heights accept
+100–800 pixels, and `overlayOpacity` accepts 0–1. The enabled image path must
+identify an existing file under `public/`.
+
 Do not put API keys, access tokens, passwords, or other secrets in this folder.
 Analytics, site-verification, and Giscus identifiers are public browser
 configuration, not credentials. Leave an optional value empty to omit it.

@@ -141,7 +141,8 @@ const configuredPublicAssets = [
   SITE.author.profileImage,
   SITE.favicon,
   SITE.manifestIcon,
-  SITE.socialImage
+  SITE.socialImage,
+  ...(APPEARANCE.banner.enabled ? [APPEARANCE.banner.image] : [])
 ];
 for (const publicPath of configuredPublicAssets) {
   const target = publicPath.replace(/^\/+/, "");
@@ -221,8 +222,39 @@ if (!indexHtml.includes(`data-default-accent-hue="${APPEARANCE.accentHue}"`)) {
   errors.push(`index.html: configured accent hue is missing: ${APPEARANCE.accentHue}`);
 }
 
+const hasBanner = indexHtml.includes('class="hero-banner"');
+if (hasBanner !== APPEARANCE.banner.enabled) {
+  errors.push(
+    `index.html: homepage banner does not match appearance.banner.enabled=${APPEARANCE.banner.enabled}`
+  );
+}
+if (APPEARANCE.banner.enabled) {
+  const banner = APPEARANCE.banner;
+  if (!indexHtml.includes(`src="${sitePath(banner.image)}"`)) {
+    errors.push(`index.html: configured homepage banner image is missing: ${banner.image}`);
+  }
+  for (const value of [
+    `--banner-height: ${banner.height}px`,
+    `--banner-mobile-height: ${banner.mobileHeight}px`,
+    `--banner-overlay-opacity: ${banner.overlayOpacity}`,
+    `--banner-position: ${banner.position}`
+  ]) {
+    if (!indexHtml.includes(value)) errors.push(`index.html: missing banner style ${value}`);
+  }
+} else if (indexHtml.includes(APPEARANCE.banner.image)) {
+  errors.push("index.html: disabled homepage banner image is still requested");
+}
+
 if (!buildCss.includes("--accent-hue") || !buildCss.includes("writing-mode:vertical-lr")) {
   errors.push("build CSS: Hue palette or vertical slider is missing");
+}
+if (
+  !buildCss.includes(".hero-banner:after")
+  || !buildCss.includes("linear-gradient(to bottom")
+  || !buildCss.includes("var(--bg) 100%")
+  || !buildCss.includes("var(--banner-mobile-height)")
+) {
+  errors.push("build CSS: homepage banner or theme-aware fade styles are missing");
 }
 if (buildCss.includes("data-accent=")) {
   errors.push("build CSS: removed accent mode selectors are still present");
