@@ -49,10 +49,10 @@ const publicPath = nonEmptyString
 
 const bannerDefaults = {
   enabled: false,
-  image: "/images/site/banner.jpg",
+  image: "/images/site/banner.webp",
   position: "center" as const,
-  height: 320,
-  mobileHeight: 220,
+  height: 600,
+  mobileHeight: 420,
   overlayOpacity: 0.18
 };
 

@@ -24,8 +24,8 @@ const schema = {
 };
 ---
 
-<BaseLayout schema={schema}>
-  {APPEARANCE.banner.enabled && <HeroBanner slot="banner" />}
+<BaseLayout schema={schema} heroBackground={APPEARANCE.banner.enabled}>
+  {APPEARANCE.banner.enabled && <HeroBanner slot="background" />}
   {page.posts.length ? (
     <>
       <header class="page-heading">

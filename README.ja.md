@@ -128,15 +128,15 @@ Light/dark themeのsaturation、lightness、contrastはテンプレートが自�
 appearance:
   banner:
     enabled: true
-    image: /images/site/banner.jpg
+    image: /images/site/banner.webp
     position: center
-    height: 320
-    mobileHeight: 220
+    height: 600
+    mobileHeight: 420
     overlayOpacity: 0.18
 ```
 
-画像は既存headerの下に表示され、現在のlight/dark theme背景へ自然にfadeします。
-プロジェクトサイトのbase pathも自動で適用されます。
+画像は既存headerとnavigationの背後でviewport全幅を満たし、現在のlight/dark theme
+背景へ自然にfadeします。プロジェクトサイトのbase pathも自動で適用されます。
 
 ## 投稿を書く
 

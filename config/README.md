@@ -48,10 +48,10 @@ image under `public/` and configure `appearance.banner` in `site.yaml`:
 appearance:
   banner:
     enabled: true
-    image: /images/site/banner.jpg
+    image: /images/site/banner.webp
     position: center
-    height: 320
-    mobileHeight: 220
+    height: 600
+    mobileHeight: 420
     overlayOpacity: 0.18
 ```
 

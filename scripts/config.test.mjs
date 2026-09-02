@@ -41,10 +41,10 @@ test("the repository configuration is valid", () => {
   assert.equal(config.appearance.accentHue, 250);
   assert.deepEqual(config.appearance.banner, {
     enabled: false,
-    image: "/images/site/banner.jpg",
+    image: "/images/site/banner.webp",
     position: "center",
-    height: 320,
-    mobileHeight: 220,
+    height: 600,
+    mobileHeight: 420,
     overlayOpacity: 0.18
   });
 });
@@ -117,10 +117,10 @@ test("a missing banner section uses disabled defaults", () => {
 
   assert.deepEqual(loadSiteConfig({ configDirectory: directory }).appearance.banner, {
     enabled: false,
-    image: "/images/site/banner.jpg",
+    image: "/images/site/banner.webp",
     position: "center",
-    height: 320,
-    mobileHeight: 220,
+    height: 600,
+    mobileHeight: 420,
     overlayOpacity: 0.18
   });
 });
@@ -128,21 +128,16 @@ test("a missing banner section uses disabled defaults", () => {
 test("an enabled banner accepts a valid local image", () => {
   const directory = configFixture();
   replaceInFile(directory, "site.yaml", "    enabled: false", "    enabled: true");
-  replaceInFile(
-    directory,
-    "site.yaml",
-    "/images/site/banner.jpg",
-    "/images/site/template-preview.png"
-  );
 
   const banner = loadSiteConfig({ configDirectory: directory }).appearance.banner;
   assert.equal(banner.enabled, true);
-  assert.equal(banner.image, "/images/site/template-preview.png");
+  assert.equal(banner.image, "/images/site/banner.webp");
 });
 
 test("an enabled banner rejects a missing local image", () => {
   const directory = configFixture();
   replaceInFile(directory, "site.yaml", "    enabled: false", "    enabled: true");
+  replaceInFile(directory, "site.yaml", "/images/site/banner.webp", "/images/site/missing.webp");
 
   assert.throws(
     () => loadSiteConfig({ configDirectory: directory }),
@@ -159,8 +154,8 @@ test("a banner image rejects external URLs", () => {
   replaceInFile(
     directory,
     "site.yaml",
-    "/images/site/banner.jpg",
-    "https://example.com/banner.jpg"
+    "/images/site/banner.webp",
+    "https://example.com/banner.webp"
   );
 
   assert.throws(

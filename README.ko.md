@@ -127,15 +127,15 @@ Light/dark theme의 saturation, lightness와 contrast는 템플릿이 자동으�
 appearance:
   banner:
     enabled: true
-    image: /images/site/banner.jpg
+    image: /images/site/banner.webp
     position: center
-    height: 320
-    mobileHeight: 220
+    height: 600
+    mobileHeight: 420
     overlayOpacity: 0.18
 ```
 
-이미지는 기존 header 아래에 표시되고 현재 light/dark theme 배경으로 자연스럽게
-이어집니다. 프로젝트 사이트의 base path도 자동으로 적용됩니다.
+이미지는 기존 header와 navigation 뒤에서 viewport 전체 폭을 채우고 현재 light/dark
+theme 배경으로 자연스럽게 이어집니다. 프로젝트 사이트의 base path도 자동으로 적용됩니다.
 
 ## 게시물 작성
 

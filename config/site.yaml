@@ -20,10 +20,10 @@ appearance:
   accentHue: 250 # 0-360
   banner:
     enabled: false
-    image: /images/site/banner.jpg
+    image: /images/site/banner.webp
     position: center # center, top, bottom, left, or right
-    height: 320 # 100-800px
-    mobileHeight: 220 # 100-800px
+    height: 600 # 100-800px
+    mobileHeight: 420 # 100-800px
     overlayOpacity: 0.18 # 0-1
 
 languages:

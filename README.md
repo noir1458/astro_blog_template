@@ -130,15 +130,16 @@ The homepage banner is optional and disabled by default. Put a local image in
 appearance:
   banner:
     enabled: true
-    image: /images/site/banner.jpg
+    image: /images/site/banner.webp
     position: center
-    height: 320
-    mobileHeight: 220
+    height: 600
+    mobileHeight: 420
     overlayOpacity: 0.18
 ```
 
-The image appears below the existing header and fades into the active light or
-dark theme background. Project-site base paths are applied automatically.
+The image fills the viewport width behind the existing header and navigation,
+then fades into the active light or dark theme background. Project-site base
+paths are applied automatically.
 
 ## Write posts
 

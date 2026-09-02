@@ -30,6 +30,7 @@ interface Props {
   language?: SupportedLanguage;
   translations?: PostTranslation[];
   sidebarHeadings?: MarkdownHeading[];
+  heroBackground?: boolean;
 }
 
 const {
@@ -44,7 +45,8 @@ const {
   schema,
   language = SITE.language,
   translations = [],
-  sidebarHeadings = []
+  sidebarHeadings = [],
+  heroBackground = false
 } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
 const canonical = absoluteSiteUrl(Astro.url.pathname);
@@ -230,14 +232,15 @@ const pageTransition: TransitionDirectionalAnimations = {
     <slot name="head" />
   </head>
   <body
+    class:list={{ "has-hero-background": heroBackground }}
     data-pagefind-body={pagefindBody ? "" : undefined}
     transition:name="page-shell"
     transition:animate="none"
   >
+    {heroBackground && <slot name="background" />}
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="site-shell">
       <Header language={language} translations={translations} />
-      <slot name="banner" />
       <div
         class:list={[
           "content-grid",

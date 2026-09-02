@@ -228,6 +228,12 @@ if (hasBanner !== APPEARANCE.banner.enabled) {
     `index.html: homepage banner does not match appearance.banner.enabled=${APPEARANCE.banner.enabled}`
   );
 }
+const hasHeroBackground = indexHtml.includes('class="has-hero-background"');
+if (hasHeroBackground !== APPEARANCE.banner.enabled) {
+  errors.push(
+    `index.html: full-width background layer does not match appearance.banner.enabled=${APPEARANCE.banner.enabled}`
+  );
+}
 if (APPEARANCE.banner.enabled) {
   const banner = APPEARANCE.banner;
   if (!indexHtml.includes(`src="${sitePath(banner.image)}"`)) {
@@ -253,8 +259,16 @@ if (
   || !buildCss.includes("linear-gradient(to bottom")
   || !buildCss.includes("var(--bg) 100%")
   || !buildCss.includes("var(--banner-mobile-height)")
+  || !buildCss.includes(".has-hero-background .site-shell")
 ) {
   errors.push("build CSS: homepage banner or theme-aware fade styles are missing");
+}
+const heroBannerRule = buildCss.match(/\.hero-banner\{([^}]*)\}/u)?.[1] ?? "";
+if (!heroBannerRule.includes("width:100vw") || !heroBannerRule.includes("position:absolute")) {
+  errors.push("build CSS: homepage background does not span the viewport");
+}
+if (heroBannerRule.includes("border") || heroBannerRule.includes("margin")) {
+  errors.push("build CSS: homepage background still has card styling");
 }
 if (buildCss.includes("data-accent=")) {
   errors.push("build CSS: removed accent mode selectors are still present");

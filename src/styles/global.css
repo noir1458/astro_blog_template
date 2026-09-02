@@ -222,6 +222,16 @@ button {
   margin-inline: auto;
 }
 
+body.has-hero-background {
+  position: relative;
+  isolation: isolate;
+}
+
+.has-hero-background .site-shell {
+  position: relative;
+  z-index: 1;
+}
+
 .site-header {
   position: relative;
   z-index: 30;
@@ -229,12 +239,17 @@ button {
 }
 
 .hero-banner {
-  position: relative;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  max-width: none;
   height: var(--banner-height);
-  margin-top: 24px;
   overflow: hidden;
-  border-radius: 4px;
   background: var(--bg);
+  transform: translateX(-50%);
+  pointer-events: none;
 }
 
 .hero-banner img {
@@ -257,7 +272,13 @@ button {
 }
 
 .hero-banner::after {
-  background: linear-gradient(to bottom, transparent 52%, var(--bg) 100%);
+  background: linear-gradient(
+    to bottom,
+    transparent 32%,
+    color-mix(in srgb, var(--bg) 18%, transparent) 48%,
+    color-mix(in srgb, var(--bg) 62%, transparent) 72%,
+    var(--bg) 100%
+  );
 }
 
 .title-row {
@@ -2595,7 +2616,6 @@ button {
 
   .hero-banner {
     height: var(--banner-mobile-height);
-    margin-top: 18px;
   }
 
   .title-row {

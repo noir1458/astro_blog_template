@@ -19,10 +19,9 @@ try {
     .readFileSync(siteConfigPath, "utf8")
     .replace("https://username.github.io", siteUrl)
     .replace("    enabled: false", "    enabled: true")
-    .replace("/images/site/banner.jpg", "/images/site/template-preview.png")
     .replace("    position: center", "    position: bottom")
-    .replace("    height: 320", "    height: 360")
-    .replace("    mobileHeight: 220", "    mobileHeight: 200")
+    .replace("    height: 600", "    height: 640")
+    .replace("    mobileHeight: 420", "    mobileHeight: 360")
     .replace("    overlayOpacity: 0.18", "    overlayOpacity: 0.24");
   fs.writeFileSync(siteConfigPath, siteConfig);
 
@@ -53,12 +52,14 @@ try {
   assert.deepEqual(unprefixedAttributes, []);
   assert.match(indexHtml, new RegExp(`href="${basePath}/posts/welcome/"`, "u"));
   assert.match(indexHtml, /class="hero-banner"/u);
-  assert.match(indexHtml, new RegExp(`src="${basePath}/images/site/template-preview\\.png"`, "u"));
-  assert.match(indexHtml, /--banner-height: 360px/u);
-  assert.match(indexHtml, /--banner-mobile-height: 200px/u);
+  assert.match(indexHtml, /class="has-hero-background"/u);
+  assert.match(indexHtml, new RegExp(`src="${basePath}/images/site/banner\\.webp"`, "u"));
+  assert.match(indexHtml, /--banner-height: 640px/u);
+  assert.match(indexHtml, /--banner-mobile-height: 360px/u);
   assert.match(indexHtml, /--banner-overlay-opacity: 0\.24/u);
   assert.match(indexHtml, /--banner-position: bottom/u);
   assert.doesNotMatch(postHtml, /class="hero-banner"/u);
+  assert.doesNotMatch(postHtml, /class="has-hero-background"/u);
   assert.match(postHtml, new RegExp(`href="${basePath}/posts/markdown-guide/"`, "u"));
   assert.match(postHtml, new RegExp(`src="${basePath}/_astro/`, "u"));
   assert.match(indexHtml, new RegExp(`https://username\\.github\\.io${basePath}/`));
