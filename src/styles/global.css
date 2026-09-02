@@ -1223,43 +1223,47 @@ body.has-hero-background {
 }
 
 body.has-hero-background {
-  --hero-nav-surface: color-mix(in srgb, var(--surface) 28%, transparent);
-  --hero-sidebar-surface: color-mix(in srgb, var(--surface) 24%, transparent);
-  --hero-control-surface: color-mix(in srgb, var(--surface-solid) 34%, transparent);
-  --hero-glass-border: color-mix(in srgb, var(--line) 38%, transparent);
-  --hero-glass-shadow:
-    0 6px 18px rgb(31 52 64 / 4%),
-    inset 0 1px 0 rgb(255 255 255 / 12%);
-  --hero-text-halo:
-    0 1px 1px rgb(255 255 255 / 55%),
-    0 0 5px rgb(255 255 255 / 24%);
-  --hero-icon-halo:
-    drop-shadow(0 1px 1px rgb(255 255 255 / 48%))
-    drop-shadow(0 0 3px rgb(255 255 255 / 20%));
+  --hero-nav-surface: color-mix(in srgb, var(--surface) 90%, transparent);
+  --hero-sidebar-surface: color-mix(in srgb, var(--surface) 90%, transparent);
+  --hero-control-surface: color-mix(in srgb, var(--surface-solid) 92%, transparent);
+  --hero-panel-border: var(--line);
+  --hero-panel-blur: 10px;
+  --hero-control-blur: 8px;
+  --hero-panel-shadow: var(--glass-shadow);
+  --hero-scrim: rgb(255 255 255 / 12%);
+  --hero-content-divider: color-mix(in srgb, var(--line) 72%, var(--text-soft));
+  --hero-direct-text-shadow:
+    0 0 1px rgb(255 255 255 / 78%), 0 1px 5px rgb(255 255 255 / 46%);
+  --hero-direct-icon-shadow:
+    drop-shadow(0 0 1px rgb(255 255 255 / 70%))
+    drop-shadow(0 1px 3px rgb(255 255 255 / 38%));
 }
 
 :root[data-theme="dark"] body.has-hero-background,
 :root[data-theme="system"][data-resolved-theme="dark"] body.has-hero-background {
-  --hero-nav-surface: color-mix(in srgb, var(--surface) 24%, transparent);
-  --hero-sidebar-surface: color-mix(in srgb, var(--surface) 20%, transparent);
-  --hero-control-surface: color-mix(in srgb, var(--surface-solid) 30%, transparent);
-  --hero-glass-border: color-mix(in srgb, var(--line) 34%, transparent);
-  --hero-glass-shadow:
-    0 6px 18px rgb(0 0 0 / 10%),
-    inset 0 1px 0 rgb(255 255 255 / 4%);
-  --hero-text-halo:
-    0 1px 1px rgb(0 0 0 / 58%),
-    0 0 5px rgb(0 0 0 / 28%);
-  --hero-icon-halo:
-    drop-shadow(0 1px 1px rgb(0 0 0 / 52%))
-    drop-shadow(0 0 3px rgb(0 0 0 / 24%));
+  --hero-nav-surface: color-mix(in srgb, var(--surface) 88%, transparent);
+  --hero-sidebar-surface: color-mix(in srgb, var(--surface) 88%, transparent);
+  --hero-control-surface: color-mix(in srgb, var(--surface-solid) 90%, transparent);
+  --hero-scrim: rgb(0 0 0 / 14%);
+  --hero-content-divider: var(--line);
+  --hero-direct-text-shadow:
+    0 0 1px rgb(0 0 0 / 64%), 0 1px 4px rgb(0 0 0 / 38%);
+  --hero-direct-icon-shadow:
+    drop-shadow(0 0 1px rgb(0 0 0 / 56%))
+    drop-shadow(0 1px 3px rgb(0 0 0 / 32%));
+}
+
+.has-hero-background .hero-banner::before {
+  background:
+    linear-gradient(var(--hero-scrim), var(--hero-scrim)),
+    rgb(0 0 0 / var(--banner-overlay-opacity));
 }
 
 .has-hero-background .topbar {
-  border-color: var(--hero-glass-border);
+  border-color: var(--hero-panel-border);
   background: var(--hero-nav-surface);
-  box-shadow: var(--hero-glass-shadow);
-  backdrop-filter: blur(16px) saturate(115%);
+  box-shadow: var(--hero-panel-shadow);
+  backdrop-filter: blur(var(--hero-panel-blur));
 }
 
 :root .has-hero-background :is(
@@ -1267,10 +1271,10 @@ body.has-hero-background {
   .accent-picker-toggle,
   .language-picker-toggle
 ) {
-  border-color: var(--hero-glass-border);
+  border-color: var(--hero-panel-border);
   background: var(--hero-control-surface);
-  box-shadow: var(--hero-glass-shadow);
-  backdrop-filter: blur(14px) saturate(115%);
+  box-shadow: var(--hero-panel-shadow);
+  backdrop-filter: blur(var(--hero-control-blur));
 }
 
 :root .has-hero-background :is(
@@ -1283,52 +1287,46 @@ body.has-hero-background {
 
 .has-hero-background :is(
   .site-title,
-  .primary-nav a,
-  .language-code,
   .page-heading > *,
   .post-list .post-row:first-child .post-row-copy
 ) {
-  text-shadow: var(--hero-text-halo);
+  text-shadow: var(--hero-direct-text-shadow);
 }
 
-.has-hero-background :is(
-  .site-header svg,
-  .post-list .post-row:first-child .post-row-meta svg
-) {
-  filter: var(--hero-icon-halo);
+.has-hero-background .post-list .post-row:first-child .post-row-meta svg {
+  filter: var(--hero-direct-icon-shadow);
+}
+
+.has-hero-background :is(.page-heading, .post-row) {
+  border-bottom-color: var(--hero-content-divider);
 }
 
 @media (min-width: 961px) {
   .has-hero-background .sidebar {
-    border-color: var(--hero-glass-border);
+    border-color: var(--hero-panel-border);
     background: var(--hero-sidebar-surface);
-    box-shadow: var(--hero-glass-shadow);
-    text-shadow: var(--hero-text-halo);
-    backdrop-filter: blur(16px) saturate(114%);
+    box-shadow: var(--hero-panel-shadow);
+    backdrop-filter: blur(var(--hero-panel-blur));
   }
 
   .has-hero-background :is(.sidebar-toggle, .sidebar-link) {
-    border-color: var(--hero-glass-border);
+    border-color: var(--hero-panel-border);
     background: var(--hero-control-surface);
-    box-shadow: var(--hero-glass-shadow);
-    text-shadow: var(--hero-text-halo);
-    backdrop-filter: blur(14px) saturate(114%);
+    box-shadow: var(--hero-panel-shadow);
+    backdrop-filter: blur(var(--hero-control-blur));
   }
 
   .has-hero-background :is(.sidebar-toggle, .sidebar-link):is(:hover, :focus-visible) {
     background: color-mix(in srgb, var(--accent) 10%, var(--hero-control-surface));
   }
-
-  .has-hero-background .sidebar-region svg {
-    filter: var(--hero-icon-halo);
-  }
 }
 
 @media (max-width: 700px) {
   .has-hero-background .primary-nav {
-    border-color: var(--hero-glass-border);
+    border-color: var(--hero-panel-border);
     background: var(--hero-nav-surface);
-    box-shadow: var(--hero-glass-shadow);
+    box-shadow: var(--hero-panel-shadow);
+    backdrop-filter: blur(var(--hero-panel-blur));
   }
 }
 
