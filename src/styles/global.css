@@ -1230,13 +1230,14 @@ body.has-hero-background {
   --hero-panel-blur: 10px;
   --hero-control-blur: 8px;
   --hero-panel-shadow: var(--glass-shadow);
-  --hero-scrim: rgb(255 255 255 / 12%);
   --hero-content-divider: color-mix(in srgb, var(--line) 72%, var(--text-soft));
   --hero-direct-text-shadow:
-    0 0 1px rgb(255 255 255 / 78%), 0 1px 5px rgb(255 255 255 / 46%);
+    -0.6px 0 rgb(255 255 255 / 82%), 0.6px 0 rgb(255 255 255 / 82%),
+    0 -0.6px rgb(255 255 255 / 82%), 0 0.6px rgb(255 255 255 / 82%),
+    0 1px 3px rgb(255 255 255 / 18%);
   --hero-direct-icon-shadow:
-    drop-shadow(0 0 1px rgb(255 255 255 / 70%))
-    drop-shadow(0 1px 3px rgb(255 255 255 / 38%));
+    drop-shadow(0 0 0.6px rgb(255 255 255 / 78%))
+    drop-shadow(0 1px 2px rgb(255 255 255 / 16%));
 }
 
 :root[data-theme="dark"] body.has-hero-background,
@@ -1244,19 +1245,14 @@ body.has-hero-background {
   --hero-nav-surface: color-mix(in srgb, var(--surface) 88%, transparent);
   --hero-sidebar-surface: color-mix(in srgb, var(--surface) 88%, transparent);
   --hero-control-surface: color-mix(in srgb, var(--surface-solid) 90%, transparent);
-  --hero-scrim: rgb(0 0 0 / 14%);
   --hero-content-divider: var(--line);
   --hero-direct-text-shadow:
-    0 0 1px rgb(0 0 0 / 64%), 0 1px 4px rgb(0 0 0 / 38%);
+    -0.6px 0 rgb(0 0 0 / 68%), 0.6px 0 rgb(0 0 0 / 68%),
+    0 -0.6px rgb(0 0 0 / 68%), 0 0.6px rgb(0 0 0 / 68%),
+    0 1px 2px rgb(0 0 0 / 16%);
   --hero-direct-icon-shadow:
-    drop-shadow(0 0 1px rgb(0 0 0 / 56%))
-    drop-shadow(0 1px 3px rgb(0 0 0 / 32%));
-}
-
-.has-hero-background .hero-banner::before {
-  background:
-    linear-gradient(var(--hero-scrim), var(--hero-scrim)),
-    rgb(0 0 0 / var(--banner-overlay-opacity));
+    drop-shadow(0 0 0.6px rgb(0 0 0 / 64%))
+    drop-shadow(0 1px 2px rgb(0 0 0 / 14%));
 }
 
 .has-hero-background .topbar {
