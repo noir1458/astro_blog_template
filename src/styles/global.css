@@ -1284,12 +1284,26 @@ body.has-hero-background {
 .has-hero-background :is(
   .site-title,
   .page-heading > *,
-  .post-list .post-row:first-child .post-row-copy
+  .breadcrumbs,
+  .article-header > .eyebrow,
+  .article-header > h1,
+  .article-header > .project-lead,
+  .article-meta,
+  .project-detail .article-header > .project-tags,
+  .post-list .post-row:first-child .post-row-copy,
+  .search-status,
+  .not-found-code,
+  .not-found-copy > :is(.eyebrow, h1, p),
+  .empty-state > div
 ) {
   text-shadow: var(--hero-direct-text-shadow);
 }
 
-.has-hero-background .post-list .post-row:first-child .post-row-meta svg {
+.has-hero-background :is(
+  .breadcrumbs svg,
+  .article-meta svg,
+  .post-list .post-row:first-child .post-row-meta svg
+) {
   filter: var(--hero-direct-icon-shadow);
 }
 

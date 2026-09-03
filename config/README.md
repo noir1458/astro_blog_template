@@ -41,7 +41,7 @@ dark palettes. Every visitor starts with the configured hue. They can adjust it
 with the vertical slider in the palette menu, and that personal hue is stored in
 their browser.
 
-The optional homepage banner is disabled by default. To use it, place a local
+The optional site-wide background banner is disabled by default. To use it, place a local
 image under `public/` and configure `appearance.banner` in `site.yaml`:
 
 ```yaml

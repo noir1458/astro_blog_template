@@ -59,6 +59,10 @@ function findTag(html, tagName, attribute, value) {
     .find((tag) => tagAttribute(tag, attribute) === value);
 }
 
+function countOccurrences(source, value) {
+  return source.split(value).length - 1;
+}
+
 function structuredData(html, label) {
   const source = html.match(
     /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/iu
@@ -222,23 +226,29 @@ if (!indexHtml.includes(`data-default-accent-hue="${APPEARANCE.accentHue}"`)) {
   errors.push(`index.html: configured accent hue is missing: ${APPEARANCE.accentHue}`);
 }
 
-const hasBanner = indexHtml.includes('class="hero-banner"');
-if (hasBanner !== APPEARANCE.banner.enabled) {
-  errors.push(
-    `index.html: homepage banner does not match appearance.banner.enabled=${APPEARANCE.banner.enabled}`
-  );
-}
-const hasHeroBackground = indexHtml.includes('class="has-hero-background"');
-if (hasHeroBackground !== APPEARANCE.banner.enabled) {
-  errors.push(
-    `index.html: full-width background layer does not match appearance.banner.enabled=${APPEARANCE.banner.enabled}`
-  );
+const expectedBannerCount = APPEARANCE.banner.enabled ? 1 : 0;
+const expectedBannerSource = `src="${sitePath(APPEARANCE.banner.image)}"`;
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(file, "utf8");
+  const label = path.relative(distRoot, file);
+  const bannerCount = countOccurrences(html, 'class="hero-banner"');
+  const heroClassCount = countOccurrences(html, 'class="has-hero-background"');
+  if (bannerCount !== expectedBannerCount) {
+    errors.push(`${label}: expected ${expectedBannerCount} site-wide banner, found ${bannerCount}`);
+  }
+  if (heroClassCount !== expectedBannerCount) {
+    errors.push(
+      `${label}: expected ${expectedBannerCount} hero background class, found ${heroClassCount}`
+    );
+  }
+  if (countOccurrences(html, expectedBannerSource) !== expectedBannerCount) {
+    errors.push(
+      `${label}: site-wide banner source does not match appearance.banner.enabled=${APPEARANCE.banner.enabled}`
+    );
+  }
 }
 if (APPEARANCE.banner.enabled) {
   const banner = APPEARANCE.banner;
-  if (!indexHtml.includes(`src="${sitePath(banner.image)}"`)) {
-    errors.push(`index.html: configured homepage banner image is missing: ${banner.image}`);
-  }
   for (const value of [
     `--banner-height: ${banner.height}px`,
     `--banner-mobile-height: ${banner.mobileHeight}px`,
@@ -247,8 +257,6 @@ if (APPEARANCE.banner.enabled) {
   ]) {
     if (!indexHtml.includes(value)) errors.push(`index.html: missing banner style ${value}`);
   }
-} else if (indexHtml.includes(APPEARANCE.banner.image)) {
-  errors.push("index.html: disabled homepage banner image is still requested");
 }
 
 if (!buildCss.includes("--accent-hue") || !buildCss.includes("writing-mode:vertical-lr")) {
@@ -261,14 +269,14 @@ if (
   || !buildCss.includes("var(--banner-mobile-height)")
   || !buildCss.includes(".has-hero-background .site-shell")
 ) {
-  errors.push("build CSS: homepage banner or theme-aware fade styles are missing");
+  errors.push("build CSS: site-wide banner or theme-aware fade styles are missing");
 }
 const heroBannerRule = buildCss.match(/\.hero-banner\{([^}]*)\}/u)?.[1] ?? "";
 if (!heroBannerRule.includes("width:100vw") || !heroBannerRule.includes("position:absolute")) {
-  errors.push("build CSS: homepage background does not span the viewport");
+  errors.push("build CSS: site-wide background does not span the viewport");
 }
 if (heroBannerRule.includes("border") || heroBannerRule.includes("margin")) {
-  errors.push("build CSS: homepage background still has card styling");
+  errors.push("build CSS: site-wide background still has card styling");
 }
 if (buildCss.includes("data-accent=")) {
   errors.push("build CSS: removed accent mode selectors are still present");

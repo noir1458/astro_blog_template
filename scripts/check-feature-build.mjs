@@ -67,6 +67,7 @@ try {
   assert.equal(fs.existsSync(path.join(outputDirectory, "projects/index.html")), false);
 
   const indexHtml = fs.readFileSync(path.join(outputDirectory, "index.html"), "utf8");
+  const disabledHtmlFiles = walk(outputDirectory, (file) => file.endsWith(".html"));
   const robots = fs.readFileSync(path.join(outputDirectory, "robots.txt"), "utf8");
   const postHtmlFiles = walk(
     outputDirectory,
@@ -78,9 +79,21 @@ try {
   assert.equal(indexHtml.includes("data-search-shell"), false);
   assert.equal(indexHtml.includes("data-theme-picker"), false);
   assert.equal(indexHtml.includes("data-accent-picker"), false);
-  assert.equal(indexHtml.includes('class="hero-banner"'), false);
-  assert.equal(indexHtml.includes('class="has-hero-background"'), false);
-  assert.equal(indexHtml.includes("/images/site/banner.webp"), false);
+  for (const file of disabledHtmlFiles) {
+    const html = fs.readFileSync(file, "utf8");
+    const page = path.relative(outputDirectory, file);
+    assert.equal(html.includes('class="hero-banner"'), false, `${page} rendered a disabled banner`);
+    assert.equal(
+      html.includes('class="has-hero-background"'),
+      false,
+      `${page} rendered the disabled hero body class`
+    );
+    assert.equal(
+      html.includes("/images/site/banner.webp"),
+      false,
+      `${page} rendered the disabled banner image`
+    );
+  }
   assert.equal(indexHtml.includes('type="application/rss+xml"'), false);
   assert.equal(indexHtml.includes('data-theme="light"'), true);
   assert.equal(robots.includes("Sitemap:"), false);
@@ -220,6 +233,22 @@ try {
   );
   assert.equal(projectsHtml.includes("Feature Build Project"), true);
   assert.equal(projectHtml.includes("Project overview"), true);
+  for (const [page, html] of [
+    ["projects/index.html", projectsHtml],
+    ["projects/feature-build-fixture/index.html", projectHtml]
+  ]) {
+    assert.equal(html.includes('class="hero-banner"'), false, `${page} rendered a disabled banner`);
+    assert.equal(
+      html.includes('class="has-hero-background"'),
+      false,
+      `${page} rendered the disabled hero body class`
+    );
+    assert.equal(
+      html.includes("/images/site/banner.webp"),
+      false,
+      `${page} rendered the disabled banner image`
+    );
+  }
   assert.equal(projectHtml.includes("https://github.com/example/project"), true);
   assert.equal(projectHtml.includes("https://example.com/project"), true);
   assert.equal((projectHtml.match(/class="admonition admonition-/gu) ?? []).length, 5);

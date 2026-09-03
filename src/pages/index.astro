@@ -3,8 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PostList from "@/components/PostList.astro";
 import Pagination from "@/components/Pagination.astro";
 import EmptyState from "@/components/EmptyState.astro";
-import HeroBanner from "@/components/HeroBanner.astro";
-import { APPEARANCE, SITE } from "@/config";
+import { SITE } from "@/config";
 import { getPublishedPosts, paginatePosts } from "@/utils/content";
 
 const allPosts = await getPublishedPosts();
@@ -24,8 +23,7 @@ const schema = {
 };
 ---
 
-<BaseLayout schema={schema} heroBackground={APPEARANCE.banner.enabled}>
-  {APPEARANCE.banner.enabled && <HeroBanner slot="background" />}
+<BaseLayout schema={schema}>
   {page.posts.length ? (
     <>
       <header class="page-heading">

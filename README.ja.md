@@ -121,7 +121,7 @@ Light/dark themeのsaturation、lightness、contrastはテンプレートが自�
 すべての訪問者はこのHueから始まり、paletteメニューの縦sliderで調整できます。
 訪問者が調整したHueはそのブラウザーに保存されます。
 
-ホームページbannerは任意機能で、デフォルトでは無効です。ローカル画像を`public/`に
+サイト全体の背景bannerは任意機能で、デフォルトでは無効です。ローカル画像を`public/`に
 置き、`config/site.yaml`で有効化して表示方法を調整します。
 
 ```yaml
@@ -135,8 +135,9 @@ appearance:
     overlayOpacity: 0.18
 ```
 
-画像は既存headerとnavigationの背後でviewport全幅を満たし、現在のlight/dark theme
-背景へ自然にfadeします。プロジェクトサイトのbase pathも自動で適用されます。
+画像は共通layoutを使うすべてのページで既存headerとnavigationの背後に表示され、
+viewport全幅を満たして現在のlight/dark theme背景へ自然にfadeします。
+プロジェクトサイトのbase pathも自動で適用されます。
 
 ## 投稿を書く
 

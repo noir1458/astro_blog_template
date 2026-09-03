@@ -42,8 +42,27 @@ try {
 
   const indexHtml = fs.readFileSync(path.join(outputDirectory, "index.html"), "utf8");
   const postHtml = fs.readFileSync(path.join(outputDirectory, "posts/welcome/index.html"), "utf8");
+  const representativePages = new Map([
+    ["index.html", indexHtml],
+    ["posts/welcome/index.html", postHtml],
+    [
+      "categories/index.html",
+      fs.readFileSync(path.join(outputDirectory, "categories/index.html"), "utf8")
+    ],
+    ["tags/index.html", fs.readFileSync(path.join(outputDirectory, "tags/index.html"), "utf8")],
+    [
+      "archives/index.html",
+      fs.readFileSync(path.join(outputDirectory, "archives/index.html"), "utf8")
+    ],
+    ["about/index.html", fs.readFileSync(path.join(outputDirectory, "about/index.html"), "utf8")],
+    ["search/index.html", fs.readFileSync(path.join(outputDirectory, "search/index.html"), "utf8")],
+    [
+      "projects/example-project/index.html",
+      fs.readFileSync(path.join(outputDirectory, "projects/example-project/index.html"), "utf8")
+    ]
+  ]);
   const rootRelativeAttributes = [
-    ...`${indexHtml}\n${postHtml}`.matchAll(/\b(?:href|src|action)="(\/[^"]*)"/gu)
+    ...[...representativePages.values()].join("\n").matchAll(/\b(?:href|src|action)="(\/[^"]*)"/gu)
   ].map((match) => match[1]);
   const unprefixedAttributes = rootRelativeAttributes.filter(
     (value) => value !== `${basePath}/` && !value.startsWith(`${basePath}/`)
@@ -58,8 +77,23 @@ try {
   assert.match(indexHtml, /--banner-mobile-height: 360px/u);
   assert.match(indexHtml, /--banner-overlay-opacity: 0\.24/u);
   assert.match(indexHtml, /--banner-position: bottom/u);
-  assert.doesNotMatch(postHtml, /class="hero-banner"/u);
-  assert.doesNotMatch(postHtml, /class="has-hero-background"/u);
+  for (const [page, html] of representativePages) {
+    assert.equal(
+      (html.match(/class="hero-banner"/gu) ?? []).length,
+      1,
+      `${page} should render exactly one banner`
+    );
+    assert.equal(
+      (html.match(/class="has-hero-background"/gu) ?? []).length,
+      1,
+      `${page} should render exactly one hero body class`
+    );
+    assert.equal(
+      (html.match(new RegExp(`src="${basePath}/images/site/banner\\.webp"`, "gu")) ?? []).length,
+      1,
+      `${page} should resolve exactly one banner image through the base path`
+    );
+  }
   assert.match(postHtml, new RegExp(`href="${basePath}/posts/markdown-guide/"`, "u"));
   assert.match(postHtml, new RegExp(`src="${basePath}/_astro/`, "u"));
   assert.match(indexHtml, new RegExp(`https://username\\.github\\.io${basePath}/`));
@@ -88,7 +122,7 @@ try {
         rss: true,
         sitemap: true,
         manifest: true,
-        homepageBanner: true,
+        siteWideBanner: true,
         errors: []
       },
       null,
