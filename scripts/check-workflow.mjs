@@ -45,6 +45,20 @@ expect(
   build?.steps?.some((step) => step.run === "npm run check"),
   "build must run the complete local validation"
 );
+const liveDemoBuild = build?.steps?.find((step) => step.name === "Build official live demo");
+expect(
+  liveDemoBuild?.run === "node scripts/build-live-demo.mjs",
+  "the official live demo must use the isolated demo build"
+);
+expect(
+  liveDemoBuild?.env?.ASTRO_BLOG_DEMO_URL === "https://noir1458.github.io/astro_blog_template",
+  "the official live demo must use its complete project-site URL"
+);
+expect(
+  String(liveDemoBuild?.if).includes("github.repository == 'noir1458/astro_blog_template'")
+    && String(liveDemoBuild?.if).includes("github.event_name != 'pull_request'"),
+  "the live-demo override must only run for non-PR builds in the official repository"
+);
 expect(
   build?.steps?.some(
     (step) => step.run === "npx playwright install --with-deps --only-shell chromium"
@@ -80,6 +94,12 @@ for (const stepName of ["Configure Pages", "Upload Pages artifact"]) {
     `${stepName} must require enabled Pages`
   );
 }
+const liveDemoIndex = build?.steps?.indexOf(liveDemoBuild);
+const uploadIndex = build?.steps?.findIndex((step) => step.name === "Upload Pages artifact");
+expect(
+  liveDemoIndex >= 0 && uploadIndex > liveDemoIndex,
+  "the official live demo must be built before the Pages artifact is uploaded"
+);
 expect(deploy?.needs === "build", "deploy must depend on build");
 expect(deploy?.permissions?.pages === "write", "deploy requires pages: write");
 expect(deploy?.permissions?.["id-token"] === "write", "deploy requires id-token: write");

@@ -1,12 +1,23 @@
-# Astro Personal Blog Template
+# Astro Blog & Portfolio Template
+
+[![CI](https://github.com/noir1458/astro_blog_template/actions/workflows/deploy.yml/badge.svg)](https://github.com/noir1458/astro_blog_template/actions/workflows/deploy.yml)
+[![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 [English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md)
 
 > You only need to edit `config/`, `content/`, and `public/images/`.
 
-A configuration-driven Astro blog with Markdown posts, projects, search, RSS,
-sitemap, SEO metadata, dark mode, and GitHub Pages deployment. The starter ships
-with short example content and builds without editing Astro or TypeScript files.
+A configuration-first Astro blog and portfolio template that deploys directly to
+GitHub Pages. It includes Markdown posts, projects, search, RSS, sitemap, SEO
+metadata, dark mode, and short example content, and builds without editing Astro
+or TypeScript files.
+
+[**Live Demo**](https://noir1458.github.io/astro_blog_template/) ·
+[**Use this template**](https://github.com/noir1458/astro_blog_template/generate)
+
+The live demo enables the optional site-wide background banner as a showcase.
+Repositories created from the template keep it disabled by default.
 
 ## Preview
 

@@ -42,6 +42,12 @@ jobs:
       - name: Validate and build
         run: npm run check
 
+      - name: Build official live demo
+        if: github.repository == 'noir1458/astro_blog_template' && github.event_name != 'pull_request'
+        env:
+          ASTRO_BLOG_DEMO_URL: https://noir1458.github.io/astro_blog_template
+        run: node scripts/build-live-demo.mjs
+
       - name: Detect whether Pages is enabled
         id: pages-status
         if: github.event_name != 'pull_request'

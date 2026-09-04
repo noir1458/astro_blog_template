@@ -1,8 +1,17 @@
 {
   "name": "astro-personal-blog-template",
   "version": "0.1.0",
+  "description": "Configuration-first Astro blog and portfolio template for GitHub Pages.",
   "private": true,
   "license": "MIT",
+  "keywords": [
+    "astro",
+    "blog-template",
+    "github-pages",
+    "markdown",
+    "portfolio",
+    "static-site"
+  ],
   "type": "module",
   "engines": {
     "node": ">=24.0.0"

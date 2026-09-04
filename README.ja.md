@@ -1,13 +1,23 @@
-# Astro 個人ブログテンプレート
+# Astroブログ＆ポートフォリオテンプレート
+
+[![CI](https://github.com/noir1458/astro_blog_template/actions/workflows/deploy.yml/badge.svg)](https://github.com/noir1458/astro_blog_template/actions/workflows/deploy.yml)
+[![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 [English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md)
 
 > 編集するのは `config/`、`content/`、`public/images/` の3か所だけです。
 
-Markdownの投稿、プロジェクト、検索、RSS、sitemap、SEOメタデータ、ダークモード、
-GitHub Pagesへのデプロイに対応した、設定ファイル駆動のAstroブログです。短い
-サンプルコンテンツが含まれており、AstroやTypeScriptのファイルを編集せずに
-ビルドできます。
+GitHub Pagesへ直接デプロイできる、configuration-firstのAstroブログ＆
+ポートフォリオテンプレートです。Markdownの投稿、プロジェクト、検索、RSS、
+sitemap、SEOメタデータ、ダークモード、短いサンプルコンテンツが含まれており、
+AstroやTypeScriptのファイルを編集せずにビルドできます。
+
+[**Live Demo**](https://noir1458.github.io/astro_blog_template/) ·
+[**このテンプレートを使う**](https://github.com/noir1458/astro_blog_template/generate)
+
+Live demoでは任意機能のサイト全体背景bannerを表示します。テンプレートから作成した
+リポジトリでは、デフォルトの無効状態が維持されます。
 
 ## プレビュー
 

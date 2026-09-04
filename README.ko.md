@@ -1,12 +1,23 @@
-# Astro 개인 블로그 템플릿
+# Astro 블로그 & 포트폴리오 템플릿
+
+[![CI](https://github.com/noir1458/astro_blog_template/actions/workflows/deploy.yml/badge.svg)](https://github.com/noir1458/astro_blog_template/actions/workflows/deploy.yml)
+[![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 [English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md)
 
 > `config/`, `content/`, `public/images/`만 수정하면 됩니다.
 
-Markdown 게시물, 프로젝트, 검색, RSS, sitemap, SEO 메타데이터, 다크 모드와
-GitHub Pages 배포를 지원하는 설정 기반 Astro 블로그입니다. 짧은 예제 콘텐츠가
-포함되어 있으며 Astro 또는 TypeScript 파일을 수정하지 않아도 빌드할 수 있습니다.
+GitHub Pages에 바로 배포할 수 있는 configuration-first Astro 블로그·포트폴리오
+템플릿입니다. Markdown 게시물, 프로젝트, 검색, RSS, sitemap, SEO 메타데이터,
+다크 모드와 짧은 예제 콘텐츠를 포함하며 Astro 또는 TypeScript 파일을 수정하지
+않아도 빌드할 수 있습니다.
+
+[**Live Demo**](https://noir1458.github.io/astro_blog_template/) ·
+[**이 템플릿 사용하기**](https://github.com/noir1458/astro_blog_template/generate)
+
+Live demo에서는 선택 기능인 사이트 전체 배경 배너를 보여줍니다. 템플릿으로 만든
+저장소에서는 기본값이 계속 꺼져 있습니다.
 
 ## 미리보기
 

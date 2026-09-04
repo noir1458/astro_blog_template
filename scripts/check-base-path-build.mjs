@@ -9,8 +9,8 @@ const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "astro-blog-base-pat
 const configDirectory = path.join(temporaryRoot, "config");
 const outputDirectory = path.join(temporaryRoot, "dist");
 const astroEntry = path.join(projectRoot, "node_modules/astro/bin/astro.mjs");
-const basePath = "/example-blog";
-const siteUrl = `https://username.github.io${basePath}`;
+const basePath = "/astro_blog_template";
+const siteUrl = `https://noir1458.github.io${basePath}`;
 
 try {
   fs.cpSync(path.join(projectRoot, "config"), configDirectory, { recursive: true });
@@ -96,7 +96,7 @@ try {
   }
   assert.match(postHtml, new RegExp(`href="${basePath}/posts/markdown-guide/"`, "u"));
   assert.match(postHtml, new RegExp(`src="${basePath}/_astro/`, "u"));
-  assert.match(indexHtml, new RegExp(`https://username\\.github\\.io${basePath}/`));
+  assert.match(indexHtml, new RegExp(`https://noir1458\\.github\\.io${basePath}/`));
 
   const rss = fs.readFileSync(path.join(outputDirectory, "rss.xml"), "utf8");
   const robots = fs.readFileSync(path.join(outputDirectory, "robots.txt"), "utf8");
@@ -126,6 +126,8 @@ try {
   const serviceWorker = fs.readFileSync(path.join(outputDirectory, "sw.js"), "utf8");
   assert.match(serviceWorker, /new URL\("404\.html", SCOPE_URL\)/u);
   assert.match(serviceWorker, /ASTRO_ASSET_PATH = `\$\{SCOPE_URL\.pathname\}_astro\/`/u);
+  assert.match(serviceWorker, /CACHE_NAMESPACE = `astro-blog:\$\{SCOPE_KEY\}:`/u);
+  assert.match(serviceWorker, /CACHE_NAME = `\$\{CACHE_NAMESPACE\}v6`/u);
   assert.doesNotMatch(serviceWorker, /const CORE = \["\/"/u);
 
   console.log(
