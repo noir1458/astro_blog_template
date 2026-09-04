@@ -36,6 +36,7 @@ export default defineConfig({
   base: SITE.basePath || "/",
   output: "static",
   trailingSlash: "always",
+  prefetch: false,
   integrations: FEATURES.sitemap
     ? [
         sitemap({

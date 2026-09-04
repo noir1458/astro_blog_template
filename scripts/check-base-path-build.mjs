@@ -114,6 +114,20 @@ try {
   assert.equal(manifest.scope, `${basePath}/`);
   assert.equal(manifest.icons[0].src, `${basePath}/images/site/favicon.png`);
 
+  const builtScripts = fs
+    .readdirSync(path.join(outputDirectory, "_astro"))
+    .filter((name) => name.endsWith(".js"))
+    .map((name) => fs.readFileSync(path.join(outputDirectory, "_astro", name), "utf8"))
+    .join("\n");
+  assert.match(builtScripts, new RegExp(`${basePath}/sw\\.js`, "u"));
+  assert.match(builtScripts, /updateViaCache:\s*[`"']none[`"']/u);
+  assert.match(builtScripts, /\.update\(\)/u);
+
+  const serviceWorker = fs.readFileSync(path.join(outputDirectory, "sw.js"), "utf8");
+  assert.match(serviceWorker, /new URL\("404\.html", SCOPE_URL\)/u);
+  assert.match(serviceWorker, /ASTRO_ASSET_PATH = `\$\{SCOPE_URL\.pathname\}_astro\/`/u);
+  assert.doesNotMatch(serviceWorker, /const CORE = \["\/"/u);
+
   console.log(
     JSON.stringify(
       {
@@ -122,6 +136,7 @@ try {
         rss: true,
         sitemap: true,
         manifest: true,
+        scopedServiceWorker: true,
         siteWideBanner: true,
         errors: []
       },
