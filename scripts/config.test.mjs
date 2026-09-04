@@ -40,7 +40,7 @@ test("the repository configuration is valid", () => {
   assert.equal("resume" in config.social, false);
   assert.equal(config.appearance.accentHue, 250);
   assert.deepEqual(config.appearance.banner, {
-    enabled: false,
+    enabled: true,
     image: "/images/site/banner.webp",
     position: "center",
     height: 600,
@@ -102,21 +102,21 @@ test("accent hue rejects fractional values", () => {
   );
 });
 
-test("a missing appearance section uses the default hue", () => {
+test("a missing appearance section uses the appearance defaults", () => {
   const directory = configFixture();
   replaceInFile(directory, "site.yaml", /\nappearance:\n(?: {2,}[^\n]*\n)+(?=\nlanguages:)/u, "");
 
   const appearance = loadSiteConfig({ configDirectory: directory }).appearance;
   assert.equal(appearance.accentHue, 250);
-  assert.equal(appearance.banner.enabled, false);
+  assert.equal(appearance.banner.enabled, true);
 });
 
-test("a missing banner section uses disabled defaults", () => {
+test("a missing banner section uses enabled starter defaults", () => {
   const directory = configFixture();
   replaceInFile(directory, "site.yaml", / {2}banner:\n(?: {4}[^\n]*\n)+/u, "");
 
   assert.deepEqual(loadSiteConfig({ configDirectory: directory }).appearance.banner, {
-    enabled: false,
+    enabled: true,
     image: "/images/site/banner.webp",
     position: "center",
     height: 600,
@@ -127,7 +127,6 @@ test("a missing banner section uses disabled defaults", () => {
 
 test("an enabled banner accepts a valid local image", () => {
   const directory = configFixture();
-  replaceInFile(directory, "site.yaml", "    enabled: false", "    enabled: true");
 
   const banner = loadSiteConfig({ configDirectory: directory }).appearance.banner;
   assert.equal(banner.enabled, true);
@@ -136,7 +135,6 @@ test("an enabled banner accepts a valid local image", () => {
 
 test("an enabled banner rejects a missing local image", () => {
   const directory = configFixture();
-  replaceInFile(directory, "site.yaml", "    enabled: false", "    enabled: true");
   replaceInFile(directory, "site.yaml", "/images/site/banner.webp", "/images/site/missing.webp");
 
   assert.throws(
@@ -147,6 +145,13 @@ test("an enabled banner rejects a missing local image", () => {
         error.message
       )
   );
+});
+
+test("the starter banner can be disabled explicitly", () => {
+  const directory = configFixture();
+  replaceInFile(directory, "site.yaml", "    enabled: true", "    enabled: false");
+
+  assert.equal(loadSiteConfig({ configDirectory: directory }).appearance.banner.enabled, false);
 });
 
 test("a banner image rejects external URLs", () => {

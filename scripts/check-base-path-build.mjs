@@ -18,7 +18,6 @@ try {
   const siteConfig = fs
     .readFileSync(siteConfigPath, "utf8")
     .replace("https://username.github.io", siteUrl)
-    .replace("    enabled: false", "    enabled: true")
     .replace("    position: center", "    position: bottom")
     .replace("    height: 600", "    height: 640")
     .replace("    mobileHeight: 420", "    mobileHeight: 360")

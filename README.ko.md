@@ -16,8 +16,8 @@ GitHub Pages에 바로 배포할 수 있는 configuration-first Astro 블로그�
 [**Live Demo**](https://noir1458.github.io/astro_blog_template/) ·
 [**이 템플릿 사용하기**](https://github.com/noir1458/astro_blog_template/generate)
 
-Live demo에서는 선택 기능인 사이트 전체 배경 배너를 보여줍니다. 템플릿으로 만든
-저장소에서는 기본값이 계속 꺼져 있습니다.
+Live demo와 starter 모두 포함된 사이트 전체 배경 배너를 보여줍니다. 자신의 이미지로
+교체하거나 설정 하나로 끌 수 있습니다.
 
 ## 미리보기
 
@@ -131,8 +131,8 @@ Light/dark theme의 saturation, lightness와 contrast는 템플릿이 자동으�
 모든 방문자는 이 Hue로 시작하며, palette 메뉴의 세로 slider로 조정할 수 있습니다.
 방문자가 조정한 Hue는 해당 브라우저에 저장됩니다.
 
-사이트 전체 배경 배너는 선택 기능이며 기본값은 꺼짐입니다. 로컬 이미지를 `public/`에 넣은 뒤
-`config/site.yaml`에서 활성화하고 표시 방식을 조정합니다.
+포함된 사이트 전체 배경 배너는 기본으로 활성화되어 있습니다. `public/` 아래의 로컬
+이미지를 교체하거나 `config/site.yaml`에서 표시 방식을 조정합니다.
 
 ```yaml
 appearance:
@@ -147,7 +147,7 @@ appearance:
 
 이미지는 공통 layout을 사용하는 모든 페이지의 기존 header와 navigation 뒤에서 viewport
 전체 폭을 채우고 현재 light/dark theme 배경으로 자연스럽게 이어집니다. 프로젝트 사이트의
-base path도 자동으로 적용됩니다.
+base path도 자동으로 적용됩니다. 배너를 제거하려면 `enabled: false`로 설정합니다.
 
 ## 게시물 작성
 

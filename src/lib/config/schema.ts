@@ -48,7 +48,7 @@ const publicPath = nonEmptyString
   );
 
 const bannerDefaults = {
-  enabled: false,
+  enabled: true,
   image: "/images/site/banner.webp",
   position: "center" as const,
   height: 600,

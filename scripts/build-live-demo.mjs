@@ -24,7 +24,6 @@ try {
   }
 
   document.setIn(["site", "url"], demoUrl);
-  document.setIn(["appearance", "banner", "enabled"], true);
   fs.writeFileSync(siteConfigPath, document.toString());
 
   const build = spawnSync("npm", ["run", "build"], {

@@ -16,8 +16,8 @@ AstroやTypeScriptのファイルを編集せずにビルドできます。
 [**Live Demo**](https://noir1458.github.io/astro_blog_template/) ·
 [**このテンプレートを使う**](https://github.com/noir1458/astro_blog_template/generate)
 
-Live demoでは任意機能のサイト全体背景bannerを表示します。テンプレートから作成した
-リポジトリでは、デフォルトの無効状態が維持されます。
+Live demoとstarterの両方で、同梱のサイト全体背景bannerを表示します。自分の画像へ
+置き換えるか、1つの設定で無効にできます。
 
 ## プレビュー
 
@@ -131,8 +131,8 @@ Light/dark themeのsaturation、lightness、contrastはテンプレートが自�
 すべての訪問者はこのHueから始まり、paletteメニューの縦sliderで調整できます。
 訪問者が調整したHueはそのブラウザーに保存されます。
 
-サイト全体の背景bannerは任意機能で、デフォルトでは無効です。ローカル画像を`public/`に
-置き、`config/site.yaml`で有効化して表示方法を調整します。
+同梱のサイト全体背景bannerはデフォルトで有効です。`public/`配下のローカル画像を
+置き換えるか、`config/site.yaml`で表示方法を調整します。
 
 ```yaml
 appearance:
@@ -147,7 +147,8 @@ appearance:
 
 画像は共通layoutを使うすべてのページで既存headerとnavigationの背後に表示され、
 viewport全幅を満たして現在のlight/dark theme背景へ自然にfadeします。
-プロジェクトサイトのbase pathも自動で適用されます。
+プロジェクトサイトのbase pathも自動で適用されます。bannerを消すには
+`enabled: false`を設定します。
 
 ## 投稿を書く
 

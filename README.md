@@ -16,8 +16,8 @@ or TypeScript files.
 [**Live Demo**](https://noir1458.github.io/astro_blog_template/) ·
 [**Use this template**](https://github.com/noir1458/astro_blog_template/generate)
 
-The live demo enables the optional site-wide background banner as a showcase.
-Repositories created from the template keep it disabled by default.
+The live demo and starter both showcase the included site-wide background
+banner. Replace its image for your site, or disable it with one setting.
 
 ## Preview
 
@@ -134,8 +134,8 @@ The template derives saturation, lightness, and contrast for both light and dark
 themes. Every visitor starts with this hue and can adjust it with the vertical
 slider in the palette menu. Their personal hue is stored in their browser.
 
-The site-wide background banner is optional and disabled by default. Put a local image in
-`public/`, then enable and adjust it in `config/site.yaml`:
+The included site-wide background banner is enabled by default. Replace its
+local image under `public/`, or adjust it in `config/site.yaml`:
 
 ```yaml
 appearance:
@@ -150,7 +150,8 @@ appearance:
 
 The image fills the viewport width behind the existing header and navigation on
 every page rendered by the shared layout, then fades into the active light or
-dark theme background. Project-site base paths are applied automatically.
+dark theme background. Project-site base paths are applied automatically. Set
+`enabled: false` to remove the banner.
 
 ## Write posts
 
