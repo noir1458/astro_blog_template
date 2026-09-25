@@ -21,8 +21,6 @@ banner. Replace its image for your site, or disable it with one setting.
 
 ## Preview
 
-### Dark
-
 **Post list**
 
 ![Post list in dark mode](public/images/site/template-preview.png)
@@ -30,16 +28,6 @@ banner. Replace its image for your site, or disable it with one setting.
 **Markdown post**
 
 ![Full Markdown post in dark mode](public/images/site/template-post-dark.png)
-
-### Light
-
-**Post list**
-
-![Post list in light mode](public/images/site/template-preview-light.png)
-
-**Markdown post**
-
-![Full Markdown post in light mode](public/images/site/template-post-light.png)
 
 ## What you edit
 

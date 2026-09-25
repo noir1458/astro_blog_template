@@ -21,8 +21,6 @@ Live demoとstarterの両方で、同梱のサイト全体背景bannerを表示�
 
 ## プレビュー
 
-### ダークモード
-
 **投稿一覧**
 
 ![ダークモードの投稿一覧](public/images/site/template-preview.png)
@@ -30,16 +28,6 @@ Live demoとstarterの両方で、同梱のサイト全体背景bannerを表示�
 **Markdown投稿**
 
 ![ダークモードのMarkdown投稿全体](public/images/site/template-post-dark.png)
-
-### ライトモード
-
-**投稿一覧**
-
-![ライトモードの投稿一覧](public/images/site/template-preview-light.png)
-
-**Markdown投稿**
-
-![ライトモードのMarkdown投稿全体](public/images/site/template-post-light.png)
 
 ## 編集する場所
 
