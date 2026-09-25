@@ -19,9 +19,9 @@ try {
     .readFileSync(siteConfigPath, "utf8")
     .replace("https://username.github.io", siteUrl)
     .replace("    position: center", "    position: bottom")
-    .replace("    height: 600", "    height: 640")
-    .replace("    mobileHeight: 420", "    mobileHeight: 360")
-    .replace("    overlayOpacity: 0.18", "    overlayOpacity: 0.24");
+    .replace("    height: 420", "    height: 640")
+    .replace("    mobileHeight: 320", "    mobileHeight: 360")
+    .replace("    overlayOpacity: 0.3", "    overlayOpacity: 0.24");
   fs.writeFileSync(siteConfigPath, siteConfig);
 
   const build = spawnSync(process.execPath, [astroEntry, "build", "--outDir", outputDirectory], {

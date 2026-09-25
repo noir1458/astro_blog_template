@@ -50,9 +50,9 @@ appearance:
     enabled: true
     image: /images/site/banner.webp
     position: center
-    height: 600
-    mobileHeight: 420
-    overlayOpacity: 0.18
+    height: 420
+    mobileHeight: 320
+    overlayOpacity: 0.3
 ```
 
 `position` accepts `center`, `top`, `bottom`, `left`, or `right`. Heights accept

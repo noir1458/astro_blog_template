@@ -82,8 +82,7 @@ try {
   const postHtml = postHtmlFiles.map((file) => fs.readFileSync(file, "utf8")).join("\n");
 
   assert.equal(indexHtml.includes("data-search-shell"), false);
-  assert.equal(indexHtml.includes("data-theme-picker"), false);
-  assert.equal(indexHtml.includes("data-accent-picker"), false);
+  assert.equal(indexHtml.includes("data-appearance-picker"), false);
   for (const file of disabledHtmlFiles) {
     const html = fs.readFileSync(file, "utf8");
     const page = path.relative(outputDirectory, file);
